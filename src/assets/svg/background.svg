@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" 
+	viewBox='0 0 100 100'>
+	<path
+		stroke="white" fill="transparent" stroke-width="1px"
+		d='m 0 0 l 20 0 l 10 24 l 40 0 l 10 -24 l 20 0'
+	/>
+</svg>
