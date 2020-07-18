@@ -1,3 +1,102 @@
 .BottomSection {
   flex: 0 0 10%;
+  position: relative;
+  z-index: 0;
+}
+
+.svg {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+
+  .animatedMiddle {
+    stroke: hsl(229, 77%, 56%);
+    stroke-width: 0.2;
+    filter: url(#blurMe);
+    stroke-dasharray: 2 24;
+    stroke-dashoffset: 19.8;
+    fill: transparent;
+    stroke-linejoin: round;
+
+    animation-name: toMiddle;
+    animation-duration: 2.2s;
+    animation-timing-function: cubic-bezier(0.98, -0.01, 0.77, 0.51);
+  }
+
+  .animatedLeft {
+    stroke: #3a59e5;
+    stroke-width: 0.15;
+    filter: url(#blurMe);
+    stroke-dasharray: 2 24;
+    stroke-dashoffset: 25.3;
+    fill: transparent;
+    stroke-linejoin: round;
+
+    animation-name: fromRight;
+    animation-duration: 2s;
+    animation-timing-function: cubic-bezier(0.98, -0.01, 0.77, 0.51);
+  }
+
+  .animatedRight {
+    stroke: #3a59e5;
+    stroke-width: 0.15;
+    filter: url(#blurMe);
+    stroke-dasharray: 2 24;
+    stroke-dashoffset: 14.3;
+    fill: transparent;
+    stroke-linejoin: round;
+
+    animation-name: fromLeft;
+    animation-duration: 2.1s;
+    animation-timing-function: cubic-bezier(0.98, -0.01, 0.77, 0.51);
+  }
+}
+
+@keyframes fromRight {
+  0% {
+    stroke: hsl(216, 90%, 69%);
+    stroke-dashoffset: 0;
+    stroke-dasharray: 1 0;
+    stroke-width: 0.01;
+  }
+
+  100% {
+    stroke-dasharray: 2 24;
+    stroke-dashoffset: 14.3;
+    stroke-width: 0.15;
+    stroke: hsl(229, 77%, 56%);
+  }
+}
+
+@keyframes fromLeft {
+  0% {
+    stroke: hsl(216, 90%, 69%);
+    stroke-dashoffset: 0;
+    stroke-dasharray: 1 0;
+    stroke-width: 0.01;
+  }
+
+  100% {
+    stroke-width: 0.15;
+    stroke-dasharray: 2 24;
+    stroke-dashoffset: 25.3;
+    stroke: hsl(229, 77%, 56%);
+  }
+}
+
+@keyframes toMiddle {
+  0% {
+    stroke: hsl(216, 90%, 69%);
+    stroke-dashoffset: 0;
+    stroke-dasharray: 1 0;
+    stroke-width: 0.01;
+  }
+
+  100% {
+    stroke-width: 0.2;
+    stroke-dasharray: 2 24;
+    stroke-dashoffset: 19.8;
+    stroke: hsl(229, 77%, 56%);
+  }
 }

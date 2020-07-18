@@ -11,6 +11,20 @@ import CountryCodes from '../../utility/countryCodes.json';
 interface IProps {}
 
 const Home: React.SFC<IProps> = () => {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    const results = fetch(`https://corona-api.com/countries/US`)
+      .then((res) => res.json())
+      .then((results) => {
+        setData(results.data);
+      })
+      .catch((err) => {
+        console.log('Error with Api');
+        console.log(err);
+      });
+  }, []);
+
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
@@ -31,6 +45,7 @@ const Home: React.SFC<IProps> = () => {
         `https://corona-api.com/countries/${e.currentTarget.value}`
       ).then((res) => res.json());
 
+      setData(results.data);
       console.log(results);
     } catch (err) {
       console.log('Error happened');
@@ -42,7 +57,7 @@ const Home: React.SFC<IProps> = () => {
     <Layout>
       <div className={styles.container}>
         <TopSection handleChange={handleChange} handleSubmit={handleSubmit} />
-        <MiddleSection />
+        <MiddleSection data={data} />
         <BottomSection />
       </div>
     </Layout>

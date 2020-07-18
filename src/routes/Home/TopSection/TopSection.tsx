@@ -17,7 +17,7 @@ const TopSection: React.SFC<TopSectionIProps> = ({
       <BackgroundTop />
       <span className={styles.location}></span>
       <div className={styles.inputContainer}>
-        <select onChange={handleChange}>
+        <select defaultValue={'US'} onChange={handleChange}>
           {Object.keys(CountryCodes).map((country) => {
             return (
               <option key={country} value={CountryCodes[country]}>
