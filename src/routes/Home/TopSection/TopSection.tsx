@@ -8,7 +8,7 @@ interface TopSectionIProps {
   handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => Promise<void>;
 }
 
-const TopSection: React.SFC<TopSectionIProps> = ({
+const TopSection: React.FC<TopSectionIProps> = ({
   handleSubmit,
   handleChange,
 }) => {

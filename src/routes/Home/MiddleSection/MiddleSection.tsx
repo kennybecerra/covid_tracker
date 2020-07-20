@@ -1,83 +1,40 @@
 import * as React from 'react';
 import styles from './MiddleSection.module.scss';
-import {
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Sector,
-  Cell,
-  Legend,
-  Tooltip,
-} from 'recharts';
+import CustomPieChart from '../../../components/Charts/CustomPieChart/CustomPieChart';
+import { chartData } from '../../../types/chartData';
+import { KPIContainer, KPI } from '../../../components/KPI/KPI';
 
-interface IMiddleSectionProps {
-  data: any;
+interface MiddleSectionIProps {
+  data: chartData;
 }
 
-const MiddleSection: React.SFC<IMiddleSectionProps> = ({ data }) => {
-  const pieChartData =
-    data &&
-    Object.keys(data.latest_data)
-      .map((key) => {
-        if (typeof data.latest_data[key] === 'number') {
-          return {
-            name: key,
-            value: data.latest_data[key],
-          };
-        } else {
-          return null;
-        }
-      })
-      .filter((item) => item);
-
-  const colors = ['#d33e71', '#b57541', '#33b4c3', '#3368dd'];
-
-  const legendFormatter = (value, entry) => {
-    const { color } = entry;
-    return (
-      <span
-        style={{
-          color,
-          textTransform: 'capitalize',
-          fontSize: 12,
-          fontWeight: 700,
-        }}>
-        {value}
-      </span>
-    );
-  };
-
-  console.log(pieChartData);
+const MiddleSection: React.FC<MiddleSectionIProps> = ({ data }) => {
   return (
     <div className={styles.MiddleSection}>
       <div className={styles.graphContainer}>
-        <ResponsiveContainer>
-          <PieChart>
-            <Pie
-              dataKey='value'
-              data={pieChartData}
-              innerRadius={'40%'}
-              outerRadius={'60%'}
-              stroke={0}
-              paddingAngle={0}>
-              {pieChartData &&
-                pieChartData.map((entry, index) => {
-                  return <Cell key={`cell-${index}`} fill={colors[index]} />;
-                })}
-            </Pie>
-            <Tooltip />
-            <Legend
-              layout='horizontal'
-              align='center'
-              verticalAlign='bottom'
-              formatter={legendFormatter}
-            />
-          </PieChart>
-        </ResponsiveContainer>
+        <KPIContainer type='separate'>
+          <KPI data={{ value: '23', key: '67' }} />
+          <KPI data={{ value: '23', key: '67' }} />
+          <KPI data={{ value: '23', key: '67' }} />
+        </KPIContainer>
       </div>
-      <div className={styles.graphContainer}></div>
-      <div className={styles.graphContainer}></div>
-      <div className={styles.graphContainer}></div>
+      <div className={styles.graphContainer}>
+        <KPIContainer type='connected'>
+          <KPI data={{ value: '23', key: '67' }} />
+          <KPI data={{ value: '23', key: '67' }} />
+          <KPI data={{ value: '23', key: '67' }} />
+        </KPIContainer>
+      </div>
+      <div className={styles.graphContainer}>
+        <KPIContainer type='connected' direction={'column'}>
+          <KPI data={{ value: '23', key: '67' }} />
+          <KPI data={{ value: '23', key: '67' }} />
+          <KPI data={{ value: '23', key: '67' }} />
+        </KPIContainer>
+      </div>
+      <div className={styles.graphContainer}>
+        <CustomPieChart data={data} />
+      </div>
       <div className={styles.graphContainer}></div>
       <div className={styles.graphContainer}></div>
       <div className={styles.graphContainer}></div>

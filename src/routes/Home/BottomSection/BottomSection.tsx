@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { Component } from 'react';
 import styles from './BottomSection.module.scss';
 
 interface IProps {}
 
-const BottomSection: React.SFC<IProps> = (props) => {
+const BottomSection: React.FC<IProps> = (props) => {
   return (
     <div className={styles.BottomSection}>
       <svg preserveAspectRatio='none' className={styles.svg} viewBox='0 0 20 4'>

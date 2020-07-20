@@ -3,7 +3,7 @@ import styles from './BackgroundTop.module.scss';
 
 interface IProps {}
 
-const BackgroundTop: React.SFC<IProps> = () => {
+const BackgroundTop: React.FC<IProps> = () => {
   return (
     <svg preserveAspectRatio='none' className={styles.svg} viewBox='0 0 20 4.2'>
       <filter id='blurMe'>

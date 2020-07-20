@@ -39,7 +39,7 @@ const DataContext = React.createContext(undefined);
 DataContext.displayName = 'Covid Data';
 
 interface IProps {}
-const Context: React.SFC<IProps> = ({ children }) => {
+const Context: React.FC<IProps> = ({ children }) => {
   const [store, dispatch] = useReducer(reducer, initialState);
 
   return (

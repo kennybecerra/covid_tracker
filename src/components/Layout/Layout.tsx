@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { Component } from 'react';
 import styles from './Layout.module.scss';
 
 interface IProps {}
 
-const Layout: React.SFC<IProps> = ({ children }) => {
+const Layout: React.FC<IProps> = ({ children }) => {
   return (
     <div className={styles.layout}>
       <div className={styles.container}>{children}</div>

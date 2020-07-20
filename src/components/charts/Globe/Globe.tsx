@@ -11,7 +11,7 @@ interface MapState {
   width: number;
 }
 
-const Globe: React.SFC<GlobeIProps> = (props) => {
+const Globe: React.FC<GlobeIProps> = (props) => {
   const [state, setState] = useState<MapState>({
     rotation: [0, 0, 0],
     length: 200,

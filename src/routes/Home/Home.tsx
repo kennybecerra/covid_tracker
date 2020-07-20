@@ -1,20 +1,18 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import Layout from '../../components/Layout/Layout';
-import BackgroundTop from './TopSection/Backgrounds/BackgroundTop';
 import TopSection from './TopSection/TopSection';
 import MiddleSection from './MiddleSection/MiddleSection';
 import BottomSection from './BottomSection/BottomSection';
 import styles from './Home.module.scss';
-import CountryCodes from '../../utility/countryCodes.json';
 
 interface IProps {}
 
-const Home: React.SFC<IProps> = () => {
+const Home: React.FC<IProps> = () => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    const results = fetch(`https://corona-api.com/countries/US`)
+    fetch(`https://corona-api.com/countries/US`)
       .then((res) => res.json())
       .then((results) => {
         setData(results.data);

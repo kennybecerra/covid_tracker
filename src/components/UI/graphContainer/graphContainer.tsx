@@ -1,12 +1,10 @@
 import * as React from 'react';
 import { Component } from 'react';
 
-interface IProps {
+interface IProps {}
 
-}
-
-const GraphContainer: React.SFC<IProps> = (options) => {
-	return (<div> </div> )
-}
+const GraphContainer: React.FC<IProps> = (options) => {
+  return <div> </div>;
+};
 
 export default GraphContainer;
