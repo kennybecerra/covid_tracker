@@ -76,9 +76,11 @@
 
   &.column {
     flex-direction: column;
+    align-content: center;
+    justify-content: space-evenly;
+    height: 100%;
 
-    &.connected {
-      background-color: #0d1633;
+    &.separate {
       position: relative;
       &::after {
         --topBorderLengthPercent: 15;
@@ -94,10 +96,86 @@
       }
 
       .KPI {
+        width: 100%;
+        height: auto;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
         margin-right: unset;
+        margin-bottom: 5px;
+        background-color: #0d1633;
+
+        &:last-child {
+          margin-bottom: unset;
+        }
+
+        .value {
+          padding: unset;
+          font-size: 14px;
+          order: 1;
+          padding: 0px 10px;
+          font-size: 10px;
+          font-weight: 700;
+        }
+
+        .key {
+          color: #2d3f80;
+          font-size: 12px;
+          font-weight: 500;
+          order: 0;
+          padding: 0px 10px;
+          text-transform: capitalize;
+        }
+      }
+    }
+
+    &.connected {
+      position: relative;
+      background-color: #0d1633;
+      &::after {
+        --topBorderLengthPercent: 15;
+
+        content: '';
+        position: absolute;
+        height: 2px;
+        width: calc(var(--topBorderLengthPercent) * 1%);
+        top: 0px;
+        left: calc(((100 - var(--topBorderLengthPercent)) / 2) * 1%);
+        background-color: #2a45b1;
+        box-shadow: 0px 0px 15px 2px #2a45b1;
+      }
+
+      .KPI {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-right: unset;
+        margin-bottom: 5px;
+        background-color: unset;
+
+        &:last-child {
+          margin-bottom: unset;
+        }
+
+        .value {
+          padding: unset;
+          font-size: 14px;
+          order: 1;
+          padding: 0px 10px;
+          font-size: 10px;
+          font-weight: 700;
+        }
+
+        .key {
+          color: #2d3f80;
+          font-size: 12px;
+          font-weight: 500;
+          order: 0;
+          padding: 0px 10px;
+          text-transform: capitalize;
+        }
       }
     }
   }

@@ -9,12 +9,12 @@ import {
   Label,
   Text,
 } from 'recharts';
-import { chartData } from '../../../types/chartData';
 import formatNumber from '../../../utility/formatNumber';
 import styles from './CustomPieChart.module.scss';
+import { covidData } from '../../../redux/actions/types';
 
 interface CustomPieChartIProps {
-  data: chartData;
+  data: covidData;
 }
 
 const CustomPieChart: React.FC<CustomPieChartIProps> = ({ data }) => {

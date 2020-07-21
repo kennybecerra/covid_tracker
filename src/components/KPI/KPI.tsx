@@ -2,14 +2,14 @@ import * as React from 'react';
 import styles from './KPI.module.scss';
 
 interface KPIIProps {
-  data: {
+  data?: {
     key: string;
     value: string;
   };
 }
 
 const KPI: React.FC<KPIIProps> = ({ data }) => {
-  const { key, value } = data;
+  const { key, value } = data ? data : { key: 'Loading', value: 'Loading' };
 
   return (
     <div className={styles.KPI}>

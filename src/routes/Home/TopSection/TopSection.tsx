@@ -2,18 +2,20 @@ import * as React from 'react';
 import styles from './TopSection.module.scss';
 import BackgroundTop from './Backgrounds/BackgroundTop';
 import CountryCodes from '../../../utility/countryCodes.json';
+import { useDispatch } from 'react-redux';
+import { fetchData } from '../../../redux/actions';
 
-interface TopSectionIProps {
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
-  handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => Promise<void>;
-}
+interface TopSectionIProps {}
 
-const TopSection: React.FC<TopSectionIProps> = ({
-  handleSubmit,
-  handleChange,
-}) => {
+const TopSection: React.FC<TopSectionIProps> = () => {
+  const dispatch = useDispatch();
+
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    dispatch(fetchData(e.currentTarget.value));
+  };
+
   return (
-    <form action='' className={styles.search} onSubmit={handleSubmit}>
+    <form action='' className={styles.search}>
       <BackgroundTop />
       <span className={styles.location}></span>
       <div className={styles.inputContainer}>
