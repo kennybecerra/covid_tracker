@@ -96,11 +96,10 @@ const CustomPieChart: React.FC<CustomPieChartIProps> = ({ data }) => {
         <Pie
           dataKey='value'
           data={pieChartData}
-          innerRadius={'40%'}
-          outerRadius={'60%'}
+          innerRadius={'50%'}
+          outerRadius={'80%'}
           stroke={0}
-          paddingAngle={0}
-          label>
+          paddingAngle={0}>
           {pieChartData &&
             pieChartData.map((entry, index) => {
               return (
@@ -121,7 +120,7 @@ const CustomPieChart: React.FC<CustomPieChartIProps> = ({ data }) => {
               };
               const presentationProps = {
                 fill: '#8797d7',
-                fontSize: 10,
+                fontSize: 12,
               };
 
               return (

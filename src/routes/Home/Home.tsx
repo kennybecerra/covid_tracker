@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
 import Layout from '../../components/Layout/Layout';
 import TopSection from './TopSection/TopSection';
 import MiddleSection from './MiddleSection/MiddleSection';

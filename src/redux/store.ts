@@ -1,8 +1,8 @@
-import { createStore, applyMiddleware, compose, AnyAction } from 'redux';
-import thunk, { ThunkDispatch, ThunkAction } from 'redux-thunk';
-import rootReducer, { StoreState } from './reducers';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import rootReducer from './reducers';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
-import { fetchData, AllActions } from './actions/graphData';
+import { fetchData } from './actions/graphData';
 
 const store = createStore(
   rootReducer,

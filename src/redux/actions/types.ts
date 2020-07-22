@@ -9,7 +9,7 @@ interface coordinate {
   longitude: number;
 }
 
-interface datapoint {
+export interface dataPoint {
   active: number;
   confirmed: number;
   date: string;
@@ -33,7 +33,7 @@ export interface covidData {
   };
   name: string;
   population: number;
-  timeline: datapoint[];
+  timeline: dataPoint[];
   today: {
     confirmed: number;
     deaths: number;

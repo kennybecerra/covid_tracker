@@ -23,32 +23,26 @@ export const graphDataReducer = (
   state: GraphState = initialState,
   action: ActionType
 ): GraphState => {
+  let newState = { ...state };
+
   switch (action.type) {
     case ActionTypes.RequestData:
-      return {
-        ...state,
-        loading: true,
-        error: false,
-      };
+      newState.loading = true;
+      newState.error = false;
       break;
     case ActionTypes.RequestDataSuccess:
-      return {
-        ...state,
-        loading: false,
-        error: false,
-        data: action.payload,
-      };
+      newState.loading = false;
+      newState.error = false;
+      newState.data = action.payload;
       break;
     case ActionTypes.RequestDataFailure:
-      return {
-        ...state,
-        loading: false,
-        error: true,
-        errorMessage: action.payload,
-      };
+      newState.loading = false;
+      newState.error = true;
+      newState.errorMessage = action.payload;
       break;
     default:
-      return { ...state };
       break;
   }
+
+  return newState;
 };
