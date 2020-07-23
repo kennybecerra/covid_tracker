@@ -133,12 +133,9 @@ const MiddleSection: React.FC<MiddleSectionIProps> = () => {
       <div className={styles.graphContainer}>
         {loading ? null : <CustomPieChart data={data} />}
       </div>
-      <div className={styles.graphContainer}>
+      <div className={styles.lineChart}>
         {loading ? null : <CustomMultiLineChart data={data.timeline} />}
       </div>
-      <div className={styles.graphContainer}></div>
-      <div className={styles.graphContainer}></div>
-      <div className={styles.graphContainer}></div>
       <div className={styles.graphContainer}></div>
     </div>
   );
