@@ -28,8 +28,6 @@ const TopSection: React.FC<TopSectionIProps> = () => {
             );
           })}
         </select>
-
-        <button className={styles.button}>submit</button>
       </div>
       <span className={styles.date}></span>
     </form>

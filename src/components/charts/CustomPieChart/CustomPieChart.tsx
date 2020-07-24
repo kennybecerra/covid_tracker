@@ -39,22 +39,22 @@ const CustomPieChart: React.FC<CustomPieChartIProps> = ({ data }) => {
     deaths: {
       start: 'hsl(332, 98%, 68%)',
       end: 'hsl(344, 81%, 56%)',
-      color: '#d33e71',
+      color: '#f1437d',
     },
     critical: {
       start: 'hsl(43, 92%, 72%)',
       end: 'hsl(27, 67%, 58%)',
-      color: '#b57541',
+      color: '#e09852',
     },
     recovered: {
       start: 'hsl(203, 99%, 59%)',
       end: 'hsl(230, 66%, 52%)',
-      color: '#3368dd',
+      color: '#3362dd',
     },
     confirmed: {
       start: 'hsl(167, 81%, 58%)',
       end: 'hsl(192, 58%, 46%)',
-      color: '#33b4c3',
+      color: '#8884d8',
     },
   };
 
@@ -73,6 +73,20 @@ const CustomPieChart: React.FC<CustomPieChartIProps> = ({ data }) => {
   };
 
   const renderLegend = () => {};
+
+  const customTooltip = ({ active, payload, label }) => {
+    if (active) {
+      return (
+        <div className='custom-tooltip'>
+          <p className='label'>{`${label} : ${payload[0].value}`}</p>
+          <p className='intro'>{label}</p>
+          <p className='desc'>Anything </p>
+        </div>
+      );
+    }
+
+    return null;
+  };
 
   return (
     <ResponsiveContainer className={styles.background}>
@@ -103,7 +117,10 @@ const CustomPieChart: React.FC<CustomPieChartIProps> = ({ data }) => {
           {pieChartData &&
             pieChartData.map((entry, index) => {
               return (
-                <Cell key={`cell-${index}`} fill={`url(#${entry.name})`} />
+                <Cell
+                  key={`cell-${index}`}
+                  fill={gradients[entry.name].color}
+                />
               );
             })}
           <Label
@@ -119,8 +136,8 @@ const CustomPieChart: React.FC<CustomPieChartIProps> = ({ data }) => {
                 // verticalAnchor: 'middle',
               };
               const presentationProps = {
-                fill: '#8797d7',
-                fontSize: 12,
+                fill: 'hsl(228,48%,50%)',
+                fontSize: 16,
               };
 
               return (
@@ -137,7 +154,14 @@ const CustomPieChart: React.FC<CustomPieChartIProps> = ({ data }) => {
             }}
           />
         </Pie>
-        <Tooltip />
+        <Tooltip
+          contentStyle={{
+            textTransform: 'capitalize',
+            backgroundColor: '#161f48',
+            border: '0px solid transparent',
+          }}
+          // content={customTooltip}
+        />
         <Legend
           layout='horizontal'
           align='center'

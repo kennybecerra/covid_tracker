@@ -107,6 +107,60 @@ const MiddleSection: React.FC<MiddleSectionIProps> = () => {
 
   console.log(timelineData);
 
+  const timeLineProps = [
+    {
+      type: 'linear',
+      dataKey: 'confirmed',
+      stroke: '#8884d8',
+      dot: false,
+      strokeWidth: 2,
+    },
+    {
+      type: 'linear',
+      dataKey: 'active',
+      stroke: '#e09852',
+      dot: false,
+      strokeWidth: 2,
+    },
+    {
+      type: 'linear',
+      dataKey: 'recovered',
+      stroke: '#3362dd',
+      dot: false,
+      strokeWidth: 2,
+    },
+    {
+      type: 'linear',
+      dataKey: 'deaths',
+      stroke: '#f1437d',
+      dot: false,
+      strokeWidth: 2,
+    },
+  ];
+
+  const timeLineProps2 = [
+    {
+      type: 'linear',
+      dataKey: 'new_confirmed',
+      stroke: '#8884d8',
+      dot: false,
+      strokeWidth: 2,
+    },
+    {
+      type: 'linear',
+      dataKey: 'new_recovered',
+      stroke: '#3362dd',
+      dot: false,
+      strokeWidth: 2,
+    },
+    {
+      type: 'linear',
+      dataKey: 'new_deaths',
+      stroke: '#f1437d',
+      dot: false,
+      strokeWidth: 2,
+    },
+  ];
   return (
     <div className={styles.MiddleSection}>
       <div className={styles.graphContainer}>
@@ -133,10 +187,26 @@ const MiddleSection: React.FC<MiddleSectionIProps> = () => {
       <div className={styles.graphContainer}>
         {loading ? null : <CustomPieChart data={data} />}
       </div>
-      <div className={styles.lineChart}>
-        {loading ? null : <CustomMultiLineChart data={data.timeline} />}
+      <div className={styles.lineChart2}>
+        {loading ? null : (
+          <CustomMultiLineChart
+            data={data.timeline}
+            scale={'linear'}
+            lines={timeLineProps2}
+            yAxis='new_confirmed'
+          />
+        )}
       </div>
-      <div className={styles.graphContainer}></div>
+      <div className={styles.lineChart}>
+        {loading ? null : (
+          <CustomMultiLineChart
+            data={data.timeline}
+            scale={'log'}
+            lines={timeLineProps}
+            yAxis={'confirmed'}
+          />
+        )}
+      </div>
     </div>
   );
 };

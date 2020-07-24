@@ -12,11 +12,25 @@ import {
 import { dataPoint } from '../../../redux/actions/types';
 import formatNumber from '../../../utility/formatNumber';
 
+interface lineOption {
+  type: string;
+  dataKey: string;
+  stroke: string;
+  dot: boolean;
+  strokeWidth: number;
+}
+
 interface CustomMultiLineChartProps {
   data: dataPoint[];
+  scale?: 'linear' | 'log';
+  lines: lineOption[];
+  yAxis: string;
 }
 const CustomMultiLineChart: React.FC<CustomMultiLineChartProps> = ({
   data,
+  scale = 'linear',
+  lines,
+  yAxis,
 }) => {
   // utility
 
@@ -40,7 +54,7 @@ const CustomMultiLineChart: React.FC<CustomMultiLineChartProps> = ({
           y={0}
           dy={16}
           textAnchor='middle'
-          fill='#666'
+          fill='hsl(228,48%,50%)'
           fontSize='14'
           fontWeight='500'
           transform='rotate(0)'>
@@ -50,6 +64,11 @@ const CustomMultiLineChart: React.FC<CustomMultiLineChartProps> = ({
     );
   };
 
+  const labelFormater = (label) => formatDate(label);
+
+  const tooltipFormatter = (value, name, props) => {
+    return formatNumber(value);
+  };
   return (
     <ResponsiveContainer className={styles.background}>
       <LineChart
@@ -60,10 +79,23 @@ const CustomMultiLineChart: React.FC<CustomMultiLineChartProps> = ({
           right: 20,
           bottom: 10,
         }}>
-        <Line type='linear' dataKey='confirmed' stroke='#8884d8' dot={false} />
-        <Line type='linear' dataKey='active' stroke='#e09852' dot={false} />
-        <Line type='linear' dataKey='recovered' stroke='#3362dd' dot={false} />
-        <Line type='linear' dataKey='deaths' stroke='#f1437d' dot={false} />
+        <CartesianGrid
+          vertical={false}
+          strokeWidth={1.5}
+          opacity={0.5}
+          stroke='#293875'
+        />
+        {lines.map(({ dataKey, stroke, dot, strokeWidth }) => {
+          return (
+            <Line
+              key={dataKey}
+              dataKey={dataKey}
+              stroke={stroke}
+              dot={dot}
+              strokeWidth={strokeWidth}
+            />
+          );
+        })}
         <XAxis
           scale={'time'}
           dataKey={'dateNumber'}
@@ -73,14 +105,30 @@ const CustomMultiLineChart: React.FC<CustomMultiLineChartProps> = ({
           tickCount={10}
           interval={'preserveEnd'}
           tick={customizedTick}
+          stroke='hsl(228,48%,50%)'
         />
         <YAxis
-          dataKey='confirmed'
-          domain={[0, 'auto']}
-          scale='auto'
+          dataKey={yAxis}
+          domain={['dataMin', 'auto']}
+          scale={scale}
           tickFormatter={formatNumber}
+          stroke='hsl(228,48%,50%)'
+          interval='preserveStart'
+          allowDataOverflow={true}
         />
-        <Tooltip />
+        <Tooltip
+          labelFormatter={labelFormater}
+          formatter={tooltipFormatter}
+          contentStyle={{
+            textTransform: 'capitalize',
+            backgroundColor: '#161f48',
+            border: '0px solid transparent',
+          }}
+          labelStyle={{
+            color: 'white',
+            fontWeight: 500,
+          }}
+        />
       </LineChart>
     </ResponsiveContainer>
   );
