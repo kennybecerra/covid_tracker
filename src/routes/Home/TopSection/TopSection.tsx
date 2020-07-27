@@ -3,7 +3,7 @@ import styles from './TopSection.module.scss';
 import BackgroundTop from './Backgrounds/BackgroundTop';
 import CountryCodes from '../../../utility/countryCodes.json';
 import { useDispatch } from 'react-redux';
-import { fetchData } from '../../../redux/actions';
+import { fetchCovidData } from '../../../redux/actions';
 
 interface TopSectionIProps {}
 
@@ -11,7 +11,7 @@ const TopSection: React.FC<TopSectionIProps> = () => {
   const dispatch = useDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(fetchData(e.currentTarget.value));
+    dispatch(fetchCovidData(e.currentTarget.value));
   };
 
   return (

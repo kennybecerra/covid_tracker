@@ -2,10 +2,14 @@
   background-color: #0d1633;
 }
 
-.custom-tooltip {
+.customTooltip {
+  display: flex;
+  flex-direction: row;
+  background-color: #161f48;
+  border: 0px solid transparent;
   .label {
-  }
-
-  .value {
+    text-transform: capitalize;
+    padding: 0px 10px;
+    font-weight: 500;
   }
 }

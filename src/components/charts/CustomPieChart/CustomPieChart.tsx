@@ -74,13 +74,18 @@ const CustomPieChart: React.FC<CustomPieChartIProps> = ({ data }) => {
 
   const renderLegend = () => {};
 
-  const customTooltip = ({ active, payload, label }) => {
+  const customTooltip = (props) => {
+    const { active, payload, label } = props;
     if (active) {
       return (
-        <div className='custom-tooltip'>
-          <p className='label'>{`${label} : ${payload[0].value}`}</p>
-          <p className='intro'>{label}</p>
-          <p className='desc'>Anything </p>
+        <div className={styles.customTooltip}>
+          <p
+            style={{
+              color: payload[0].payload.fill,
+            }}
+            className={styles.label}>{`${payload[0].name} : ${formatNumber(
+            payload[0].value
+          )}`}</p>
         </div>
       );
     }
@@ -136,7 +141,7 @@ const CustomPieChart: React.FC<CustomPieChartIProps> = ({ data }) => {
                 // verticalAnchor: 'middle',
               };
               const presentationProps = {
-                fill: 'hsl(228,48%,50%)',
+                fill: '#8884d8',
                 fontSize: 16,
               };
 
@@ -160,7 +165,7 @@ const CustomPieChart: React.FC<CustomPieChartIProps> = ({ data }) => {
             backgroundColor: '#161f48',
             border: '0px solid transparent',
           }}
-          // content={customTooltip}
+          content={customTooltip}
         />
         <Legend
           layout='horizontal'

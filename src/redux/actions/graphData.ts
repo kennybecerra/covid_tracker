@@ -47,23 +47,25 @@ export type AllActions =
   | requestDataFailureActionType
   | AnyAction;
 
-export const fetchData = (
+export const fetchCovidData = (
   countryCode: string
 ): ThunkAction<Promise<void>, GraphState, {}, AllActions> => {
   return async (
     dispatch: ThunkDispatch<GraphState, {}, AllActions>,
     getState
   ): Promise<void> => {
-    dispatch(requestDataAction());
+    dispatch<requestDataActionType>(requestDataAction());
     try {
       const results: {
         data: covidData;
       } = await fetch(
         `https://corona-api.com/countries/${countryCode}`
       ).then((res) => res.json());
-      dispatch(requestDataSuccessAction(results.data));
+      dispatch<requestDataSuccessActionType>(
+        requestDataSuccessAction(results.data)
+      );
     } catch (err) {
-      dispatch(requestDataFailureAction(err));
+      dispatch<requestDataFailureActionType>(requestDataFailureAction(err));
     }
   };
 };

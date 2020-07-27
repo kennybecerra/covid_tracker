@@ -9,7 +9,7 @@ interface coordinate {
   longitude: number;
 }
 
-export interface dataPoint {
+export interface timelineDataPoint {
   active: number;
   confirmed: number;
   date: string;
@@ -30,10 +30,16 @@ export interface covidData {
     critical: number;
     deaths: number;
     recovered: number;
+    calculated: {
+      cases_per_million_population: number;
+      death_rate: number;
+      recovered_vs_death_ratio: number | null;
+      recovery_rate: number;
+    };
   };
   name: string;
   population: number;
-  timeline: dataPoint[];
+  timeline: timelineDataPoint[];
   today: {
     confirmed: number;
     deaths: number;

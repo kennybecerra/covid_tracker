@@ -9,7 +9,7 @@ import {
   YAxis,
   Tooltip,
 } from 'recharts';
-import { dataPoint } from '../../../redux/actions/types';
+import { timelineDataPoint } from '../../../redux/actions/types';
 import formatNumber from '../../../utility/formatNumber';
 
 interface lineOption {
@@ -21,7 +21,7 @@ interface lineOption {
 }
 
 interface CustomMultiLineChartProps {
-  data: dataPoint[];
+  data: timelineDataPoint[];
   scale?: 'linear' | 'log';
   lines: lineOption[];
   yAxis: string;

@@ -2,7 +2,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
-import { fetchData } from './actions/graphData';
+import { fetchCovidData } from './actions/graphData';
 
 const store = createStore(
   rootReducer,
@@ -10,5 +10,5 @@ const store = createStore(
 );
 
 // Workaround, need to figure out what the issue is with the types
-store.dispatch<any>(fetchData('US'));
+store.dispatch<any>(fetchCovidData('US'));
 export default store;
