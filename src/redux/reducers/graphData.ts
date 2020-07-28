@@ -158,8 +158,10 @@ const transformToKPIData = (data: covidData): KPIData => {
 };
 
 const transformToTimelineData = (data: covidData): timelineDataPoint[] => {
-  return data.timeline.map((item) => {
-    item['dateNumber'] = Date.parse(item.updated_at);
-    return item;
-  });
+  return data.timeline
+    .map((item) => {
+      item['dateNumber'] = Date.parse(item.updated_at);
+      return item;
+    })
+    .reverse();
 };
