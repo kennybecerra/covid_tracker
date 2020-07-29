@@ -46,3 +46,32 @@ export interface covidData {
   };
   updated_at: string;
 }
+
+interface KPIDataPoint {
+  key: string;
+  value: string;
+}
+
+export interface KPIData {
+  cases_per_million_population: KPIDataPoint;
+  confirmed: KPIDataPoint;
+  critical: KPIDataPoint;
+  death_rate: KPIDataPoint;
+  deaths: KPIDataPoint;
+  name: KPIDataPoint;
+  population: KPIDataPoint;
+  recovered: KPIDataPoint;
+  recovered_vs_death_ratio: KPIDataPoint;
+  recovery_rate: KPIDataPoint;
+  updated_at: KPIDataPoint;
+}
+
+interface pieSlice {
+  name: string;
+  value: number;
+}
+
+export interface PieData {
+  slices: pieSlice[];
+  total: number;
+}

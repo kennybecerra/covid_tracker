@@ -1,6 +1,6 @@
 import { ActionTypes, covidData } from '../actions/types';
 import formatNumber from '../../utility/formatNumber';
-import { timelineDataPoint } from '../actions/types';
+import { timelineDataPoint, KPIData, PieData } from '../actions/types';
 
 export interface GraphState {
   loading: boolean;
@@ -9,6 +9,7 @@ export interface GraphState {
   data: covidData;
   KPI: KPIData;
   timeline: timelineDataPoint[];
+  pieData: PieData;
 }
 
 const initialState: GraphState = {
@@ -18,6 +19,7 @@ const initialState: GraphState = {
   data: undefined,
   KPI: undefined,
   timeline: [],
+  pieData: undefined,
 };
 
 interface ActionType {
@@ -42,6 +44,7 @@ export const graphDataReducer = (
       newState.data = action.payload;
       newState.KPI = transformToKPIData(action.payload);
       newState.timeline = transformToTimelineData(action.payload);
+      newState.pieData = transformToPieData(action.payload);
       break;
     case ActionTypes.RequestDataFailure:
       newState.loading = false;
@@ -54,25 +57,6 @@ export const graphDataReducer = (
 
   return newState;
 };
-
-interface KPIDataPoint {
-  key: string;
-  value: string;
-}
-
-interface KPIData {
-  cases_per_million_population: KPIDataPoint;
-  confirmed: KPIDataPoint;
-  critical: KPIDataPoint;
-  death_rate: KPIDataPoint;
-  deaths: KPIDataPoint;
-  name: KPIDataPoint;
-  population: KPIDataPoint;
-  recovered: KPIDataPoint;
-  recovered_vs_death_ratio: KPIDataPoint;
-  recovery_rate: KPIDataPoint;
-  updated_at: KPIDataPoint;
-}
 
 const transformToKPIData = (data: covidData): KPIData => {
   const newData = Object.keys(data).reduce((accu, currentKey) => {
@@ -164,4 +148,28 @@ const transformToTimelineData = (data: covidData): timelineDataPoint[] => {
       return item;
     })
     .reverse();
+};
+
+const transformToPieData = (data: covidData): PieData => {
+  const slices = Object.entries(data.latest_data)
+    .reduce((accu, current) => {
+      if (typeof current[1] === 'number' && current[0] !== 'confirmed') {
+        accu.push({
+          name: current[0],
+          value: current[1],
+        });
+      }
+      return accu;
+    }, [])
+    .filter((item) => item);
+
+  const total =
+    typeof data.latest_data.confirmed === 'number'
+      ? data.latest_data.confirmed
+      : 0;
+
+  return {
+    slices,
+    total,
+  };
 };

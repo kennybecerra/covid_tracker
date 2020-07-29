@@ -11,7 +11,9 @@ import {
 } from 'recharts';
 import { timelineDataPoint } from '../../../redux/actions/types';
 import formatNumber from '../../../utility/formatNumber';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import Loading from '../../Loading/Loading';
+import { ChartError } from '../ChartError/ChartError';
 
 interface lineOption {
   type: string;
@@ -73,73 +75,79 @@ const CustomMultiLineChart: React.FC<CustomMultiLineChartProps> = ({
     return formatNumber(value);
   };
   return (
-    <motion.div
-      key='MiltiLineChart'
-      initial={{ opacity: 0.5 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0.5 }}
-      style={{ width: '100%', height: '100%' }}>
-      <ResponsiveContainer className={styles.background}>
-        <LineChart
-          data={data}
-          margin={{
-            top: 20,
-            left: 20,
-            right: 20,
-            bottom: 10,
-          }}>
-          <CartesianGrid
-            vertical={false}
-            strokeWidth={1.5}
-            opacity={0.5}
-            stroke='#293875'
-          />
-          {lines.map(({ dataKey, stroke, dot, strokeWidth }) => {
-            return (
-              <Line
-                key={dataKey}
-                dataKey={dataKey}
-                stroke={stroke}
-                dot={dot}
-                strokeWidth={strokeWidth}
+    <AnimatePresence exitBeforeEnter>
+      {data.length === 0 ? (
+        <ChartError />
+      ) : (
+        <motion.div
+          key='MiltiLineChart'
+          initial={{ opacity: 0.5 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0.5 }}
+          style={{ width: '100%', height: '100%' }}>
+          <ResponsiveContainer className={styles.background}>
+            <LineChart
+              data={data}
+              margin={{
+                top: 20,
+                left: 20,
+                right: 20,
+                bottom: 10,
+              }}>
+              <CartesianGrid
+                vertical={false}
+                strokeWidth={1.5}
+                opacity={0.5}
+                stroke='#293875'
               />
-            );
-          })}
-          <XAxis
-            scale={'time'}
-            dataKey={'dateNumber'}
-            type={'number'}
-            domain={['dataMin', 'auto']}
-            tickFormatter={tickFormater}
-            interval={30}
-            tick={customizedTick}
-            stroke='hsl(228,48%,50%)'
-          />
-          <YAxis
-            dataKey={yAxis}
-            domain={['dataMin', 'auto']}
-            scale={scale}
-            tickFormatter={formatNumber}
-            stroke='hsl(228,48%,50%)'
-            interval='preserveStart'
-            allowDataOverflow={true}
-          />
-          <Tooltip
-            labelFormatter={labelFormater}
-            formatter={tooltipFormatter}
-            contentStyle={{
-              textTransform: 'capitalize',
-              backgroundColor: '#161f48',
-              border: '0px solid transparent',
-            }}
-            labelStyle={{
-              color: 'white',
-              fontWeight: 500,
-            }}
-          />
-        </LineChart>
-      </ResponsiveContainer>
-    </motion.div>
+              {lines.map(({ dataKey, stroke, dot, strokeWidth }) => {
+                return (
+                  <Line
+                    key={dataKey}
+                    dataKey={dataKey}
+                    stroke={stroke}
+                    dot={dot}
+                    strokeWidth={strokeWidth}
+                  />
+                );
+              })}
+              <XAxis
+                scale={'time'}
+                dataKey={'dateNumber'}
+                type={'number'}
+                domain={['dataMin', 'auto']}
+                tickFormatter={tickFormater}
+                interval={30}
+                tick={customizedTick}
+                stroke='hsl(228,48%,50%)'
+              />
+              <YAxis
+                dataKey={yAxis}
+                domain={['dataMin', 'dataMax']}
+                scale={scale}
+                tickFormatter={formatNumber}
+                stroke='hsl(228,48%,50%)'
+                // interval='preserveStart'
+                allowDataOverflow={true}
+              />
+              <Tooltip
+                labelFormatter={labelFormater}
+                formatter={tooltipFormatter}
+                contentStyle={{
+                  textTransform: 'capitalize',
+                  backgroundColor: '#161f48',
+                  border: '0px solid transparent',
+                }}
+                labelStyle={{
+                  color: 'white',
+                  fontWeight: 500,
+                }}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 

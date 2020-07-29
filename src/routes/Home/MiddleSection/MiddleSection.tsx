@@ -50,6 +50,7 @@ const MiddleSection: React.FC<MiddleSectionIProps> = () => {
     errorMessage,
     loading,
     data,
+    pieData,
     KPI: KPIData,
     timeline,
   } = useSelector<StoreState, GraphState>((state) => state.graphData);
@@ -155,7 +156,7 @@ const MiddleSection: React.FC<MiddleSectionIProps> = () => {
         variants={showVariant}
         custom={{ parent: false, index: 4 }}
         className={styles.graphContainer}>
-        <CustomPieChart data={data} />
+        <CustomPieChart pieData={pieData} />
       </motion.div>
       <motion.div
         variants={showVariant}
@@ -175,7 +176,7 @@ const MiddleSection: React.FC<MiddleSectionIProps> = () => {
         className={styles.lineChart}>
         <CustomMultiLineChart
           data={timeline}
-          scale={'log'}
+          scale={'linear'}
           lines={timeLineProps}
           yAxis={'confirmed'}
           loading={loading}
