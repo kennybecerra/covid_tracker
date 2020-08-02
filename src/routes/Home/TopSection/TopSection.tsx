@@ -42,15 +42,6 @@ const TopSection: React.FC<TopSectionIProps> = () => {
           className={styles.select}
           isSearchable
         />
-        {/* <select defaultValue={'US'} onChange={handleChange}>
-          {Object.keys(CountryCodes).map((country) => {
-            return (
-              <option key={country} value={CountryCodes[country]}>
-                {country}
-              </option>
-            );
-          })}
-        </select> */}
       </div>
       <span className={styles.date}></span>
     </form>
