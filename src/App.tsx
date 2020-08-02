@@ -10,11 +10,11 @@ function App() {
       <Route exact path='/admin'>
         <Admin />
       </Route>
-      <Route exact path='/home'>
+      <Route exact path='/'>
         <Home />
       </Route>
       <Route path='*'>
-        <Redirect to='./home' />
+        <Redirect to='/' />
       </Route>
     </Switch>
   );
