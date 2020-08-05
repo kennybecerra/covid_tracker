@@ -17,6 +17,11 @@
     background-color: #060b29;
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-height: 92%;
+
+    @media only screen and (min-width: 600px) {
+      max-height: 1000px;
+    }
   }
 
   .block1 {

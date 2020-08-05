@@ -107,7 +107,6 @@ const MiddleSection: React.FC<MiddleSectionIProps> = () => {
 
   return (
     <motion.div
-      layout
       variants={showVariant}
       custom={{ parent: true, index: 0 }}
       initial={'initial'}
