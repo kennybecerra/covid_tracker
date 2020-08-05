@@ -45,15 +45,10 @@ const showVariant = {
 };
 
 const MiddleSection: React.FC<MiddleSectionIProps> = () => {
-  const {
-    error,
-    errorMessage,
-    loading,
-    data,
-    pieData,
-    KPI: KPIData,
-    timeline,
-  } = useSelector<StoreState, GraphState>((state) => state.graphData);
+  const { loading, pieData, KPI: KPIData, timeline } = useSelector<
+    StoreState,
+    GraphState
+  >((state) => state.graphData);
 
   const timeLineProps = [
     {

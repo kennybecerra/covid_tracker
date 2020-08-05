@@ -1,7 +1,9 @@
 import { ActionTypes, covidData } from './types';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { GraphState } from '../reducers/graphData';
-import { AnyAction } from 'redux';
+import { ActionCreator } from 'redux';
+
+// ACTION CREATORS
 
 interface requestDataActionType {
   type: ActionTypes.RequestData;
@@ -41,19 +43,22 @@ const requestDataFailureAction: (
   };
 };
 
-export type AllActions =
+export type AllGraphDataActions =
   | requestDataActionType
   | requestDataSuccessActionType
-  | requestDataFailureActionType
-  | AnyAction;
+  | requestDataFailureActionType;
 
-export const fetchCovidData = (
-  countryCode: string
-): ThunkAction<Promise<void>, GraphState, {}, AllActions> => {
+// ASYNC ACTION CREATOR
+export const fetchCovidData: ActionCreator<ThunkAction<
+  Promise<void>,
+  GraphState,
+  string,
+  AllGraphDataActions
+>> = (countryCode: string) => {
   return async (
-    dispatch: ThunkDispatch<GraphState, {}, AllActions>,
-    getState
-  ): Promise<void> => {
+    dispatch: ThunkDispatch<GraphState, string, AllGraphDataActions>,
+    getState: () => GraphState
+  ) => {
     dispatch<requestDataActionType>(requestDataAction());
     try {
       const results: {

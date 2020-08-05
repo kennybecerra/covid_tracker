@@ -12,7 +12,6 @@ import {
 import { timelineDataPoint } from '../../../redux/actions/types';
 import formatNumber from '../../../utility/formatNumber';
 import { motion, AnimatePresence } from 'framer-motion';
-import Loading from '../../Loading/Loading';
 import { ChartError } from '../ChartError/ChartError';
 
 interface lineOption {
@@ -35,7 +34,6 @@ const CustomMultiLineChart: React.FC<CustomMultiLineChartProps> = ({
   scale = 'linear',
   lines,
   yAxis,
-  loading,
 }) => {
   // utility
 
@@ -51,7 +49,7 @@ const CustomMultiLineChart: React.FC<CustomMultiLineChartProps> = ({
     return new Date(tick).toDateString();
   };
   const customizedTick = (props) => {
-    const { x, y, stroke, payload } = props;
+    const { x, y, payload } = props;
     return (
       <g transform={`translate(${x},${y})`}>
         <text

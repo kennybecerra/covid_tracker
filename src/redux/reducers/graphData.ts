@@ -1,15 +1,17 @@
 import { ActionTypes, covidData } from '../actions/types';
+import { AllGraphDataActions } from '../actions/graphData';
 import formatNumber from '../../utility/formatNumber';
 import { timelineDataPoint, KPIData, PieData } from '../actions/types';
+import { Reducer } from 'react';
 
 export interface GraphState {
-  loading: boolean;
-  error: boolean;
-  errorMessage: string;
-  data: covidData;
-  KPI: KPIData;
-  timeline: timelineDataPoint[];
-  pieData: PieData;
+  readonly loading: boolean;
+  readonly error: boolean;
+  readonly errorMessage: string;
+  readonly data: covidData;
+  readonly KPI: KPIData;
+  readonly timeline: timelineDataPoint[];
+  readonly pieData: PieData;
 }
 
 const initialState: GraphState = {
@@ -22,15 +24,10 @@ const initialState: GraphState = {
   pieData: undefined,
 };
 
-interface ActionType {
-  type: ActionTypes;
-  payload?: any;
-}
-
-export const graphDataReducer = (
-  state: GraphState = initialState,
-  action: ActionType
-): GraphState => {
+export const graphDataReducer: Reducer<GraphState, AllGraphDataActions> = (
+  state = initialState,
+  action
+) => {
   let newState = { ...state };
 
   switch (action.type) {

@@ -9,6 +9,5 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(thunk))
 );
 
-// Workaround, need to figure out what the issue is with the types
 store.dispatch<any>(fetchCovidData('US'));
 export default store;

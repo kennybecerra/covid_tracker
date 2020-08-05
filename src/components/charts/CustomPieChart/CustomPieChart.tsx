@@ -57,10 +57,8 @@ const CustomPieChart: React.FC<CustomPieChartIProps> = ({ pieData }) => {
     );
   };
 
-  const renderLegend = () => {};
-
   const customTooltip = (props) => {
-    const { active, payload, label } = props;
+    const { active, payload } = props;
     if (active) {
       return (
         <div className={styles.customTooltip}>

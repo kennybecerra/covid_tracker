@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useMemo, useState, useRef } from 'react';
+import { useMemo, useState } from 'react';
 import styles from './TopSection.module.scss';
 import BackgroundTop from './Backgrounds/BackgroundTop';
 import CountryCodes from '../../../utility/countryCodes.json';
@@ -28,7 +28,7 @@ const TopSection: React.FC<TopSectionIProps> = () => {
       label: key,
       value,
     }));
-  }, [CountryCodes]);
+  }, []);
 
   return (
     <form action='' className={styles.search}>
