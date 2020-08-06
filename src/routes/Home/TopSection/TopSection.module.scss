@@ -42,7 +42,7 @@
         }
       }
       & div[class$='-menu'] {
-        // background-color: #060b29;
+        background-color: #060b29;
 
         font-size: 14px;
         font-weight: 500;
@@ -50,7 +50,7 @@
           font-size: 16px;
         }
 
-        & div[class$='-MenuList'] {
+        & > div:first-child {
           background-color: #060b29;
 
           --scrollbarBG: #060b29;
@@ -59,6 +59,7 @@
           &::-webkit-scrollbar {
             width: 7px;
           }
+
           & {
             scrollbar-width: thin;
             scrollbar-color: var(--thumbBG) var(--scrollbarBG);

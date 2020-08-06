@@ -6,17 +6,14 @@ interface IProps {}
 const BottomSection: React.FC<IProps> = (props) => {
   return (
     <div className={styles.BottomSection}>
-      <svg
-        preserveAspectRatio='none'
-        className={styles.svg}
-        viewBox='0 0 20 4.2'>
+      <svg preserveAspectRatio='none' className={styles.svg} viewBox='0 0 20 5'>
         <filter id='blurMe'>
           <feGaussianBlur stdDeviation='.04' />
         </filter>
         <filter id='blurBorder'>
           <feGaussianBlur stdDeviation='.04' />
         </filter>
-        <g transform='translate(0,.2)'>
+        <g transform='translate(0,1)'>
           <path
             strokeWidth='.1px'
             fill='#0d1633'
@@ -26,7 +23,7 @@ const BottomSection: React.FC<IProps> = (props) => {
             d='m 5 4 l 1 -4 l 8 0 l 1 4'
           />
         </g>
-        <g transform='translate(0,.2)'>
+        <g transform='translate(0,1)'>
           <path
             className={styles.animatedMiddle}
             d='m 5 4 l 1 -4 l 8 0 l 1 4'
