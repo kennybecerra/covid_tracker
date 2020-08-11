@@ -8,7 +8,7 @@ import store from './redux/store';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <BrowserRouter basename='/covid_tracker'>
+  <BrowserRouter>
     <Provider store={store}>
       <App />
     </Provider>
