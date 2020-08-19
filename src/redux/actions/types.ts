@@ -1,9 +1,3 @@
-export enum ActionTypes {
-  RequestData = 'REQUEST_DATA',
-  RequestDataSuccess = 'REQUEST_DATA_SUCCESS',
-  RequestDataFailure = 'REQUEST_DATA_FAILURE',
-}
-
 interface coordinate {
   latitude: number;
   longitude: number;
@@ -74,4 +68,44 @@ interface pieSlice {
 export interface PieData {
   slices: pieSlice[];
   total: number;
+}
+
+export interface countriesCovidData {
+  coordinates: coordinate;
+  name: string;
+  code: string;
+  population: number;
+  updated_at: string;
+  today: {
+    deaths: number;
+    cofnirmed: number;
+  };
+  latest_data: {
+    deaths: number;
+    confirmed: number;
+    recovered: number;
+    critical: number;
+    calculated: {
+      death_rate: number;
+      recovery_rate: number;
+      recovered_vs_death_ratio: null;
+      cases_per_million_population: number;
+    };
+  };
+}
+//  GEO JSON MAPPING
+
+interface feature {
+  type: 'Feature';
+  properties: {
+    name: string;
+  };
+  geometry: {
+    type: string;
+    coordinates: [number, number][];
+  };
+}
+export interface geoJSON {
+  type: 'FeatureCollection';
+  features: feature[];
 }

@@ -47,6 +47,7 @@ const Loading: React.FC<ILoading> = () => {
             layout
             variants={ballVariant}
             custom={index}
+            key={index}
             animate='animate'
             className={styles.ball}></motion.div>
         );

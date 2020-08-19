@@ -1,1 +1,1 @@
-export { fetchCovidData } from './graphData';
+export { fetchCountryCovidData, fetchCountriesCovidData } from './graphData';

@@ -1,0 +1,27 @@
+.slide2 {
+  height: 100%;
+  width: 100%;
+
+  // display: grid;
+  // grid-template-columns: 1fr 1fr;
+  // grid-template-rows: 100%;
+  // gap: 10px;
+
+  .tabulardata {
+    grid-row: 1/1;
+    grid-column: 1/2;
+
+    border: 2px solid red;
+    overflow-y: scroll;
+
+    & li {
+      list-style-type: none;
+      color: white;
+    }
+  }
+
+  .world {
+    height: 100%;
+    width: 100%;
+  }
+}
