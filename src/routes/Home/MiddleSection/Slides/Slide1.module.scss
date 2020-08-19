@@ -53,6 +53,7 @@
   .circleChart {
     grid-column: 1 / -1;
     grid-row: 4 / 5;
+    position: relative;
 
     @media only screen and (min-width: 600px) {
       grid-column: 1/2;
@@ -64,6 +65,7 @@
     grid-column: 1 / -1;
     grid-row: 6 / 7;
     margin-bottom: 10px;
+    position: relative;
     @media only screen and (min-width: 600px) {
       margin-bottom: unset;
       grid-column: 1/ -1;
@@ -74,6 +76,7 @@
   .lineChart2 {
     grid-column: 1 / -1;
     grid-row: 5 / 6;
+    position: relative;
 
     @media only screen and (min-width: 600px) {
       grid-column: 2/ -1;

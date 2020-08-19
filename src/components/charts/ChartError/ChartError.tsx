@@ -1,20 +1,16 @@
 import * as React from 'react';
-import { motion } from 'framer-motion';
 import styles from './ChartError.module.scss';
+import { animated } from 'react-spring';
 
-interface IChartError {}
+interface IChartError {
+  style: any;
+}
 
-const ChartError: React.FC<IChartError> = () => {
+const ChartError: React.FC<IChartError> = ({ style }) => {
   return (
-    <motion.div
-      initial={{
-        opacity: 0,
-      }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className={styles.container}>
+    <animated.div style={style} className={styles.container}>
       <p className={styles.text}>No data available</p>
-    </motion.div>
+    </animated.div>
   );
 };
 

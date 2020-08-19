@@ -129,7 +129,7 @@ const Slide1: React.FC<Slide1Props> = () => {
         </KPIContainer>
       </animated.div>
 
-      <animated.div style={appears[3]} className={styles.graphContainer}>
+      <animated.div style={appears[3]} className={styles.circleChart}>
         <CustomPieChart pieData={pieData} />
       </animated.div>
       <animated.div style={appears[4]} className={styles.lineChart2}>

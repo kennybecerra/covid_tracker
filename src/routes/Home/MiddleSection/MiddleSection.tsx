@@ -19,9 +19,6 @@ const MiddleSection: React.FC<MiddleSectionIProps> = () => {
       <Slider index={currentSlide}>
         <Slide1 />
         <Slide2 />
-        <div className={styles.background3}>
-          <p>Background 3</p>
-        </div>
       </Slider>
     </div>
   );

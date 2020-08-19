@@ -11,8 +11,8 @@ import {
 } from 'recharts';
 import { timelineDataPoint } from '../../../redux/actions/types';
 import formatNumber from '../../../utility/formatNumber';
-import { motion, AnimatePresence } from 'framer-motion';
 import { ChartError } from '../ChartError/ChartError';
+import { useTransition, animated, config } from 'react-spring';
 
 interface lineOption {
   type: string;
@@ -72,81 +72,96 @@ const CustomMultiLineChart: React.FC<CustomMultiLineChartProps> = ({
   const tooltipFormatter = (value, name, props) => {
     return formatNumber(value);
   };
-  return (
-    <AnimatePresence exitBeforeEnter>
-      {data.length === 0 ? (
-        <ChartError />
-      ) : (
-        <motion.div
-          key='MiltiLineChart'
-          initial={{ opacity: 0.5 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0.5 }}
-          style={{ width: '100%', height: '100%' }}>
-          <ResponsiveContainer className={styles.background}>
-            <LineChart
-              data={data}
-              margin={{
-                top: 20,
-                left: 20,
-                right: 20,
-                bottom: 10,
-              }}>
-              <CartesianGrid
-                vertical={false}
-                strokeWidth={1.5}
-                opacity={0.5}
-                stroke='#293875'
-              />
-              {lines.map(({ dataKey, stroke, dot, strokeWidth }) => {
-                return (
-                  <Line
-                    key={dataKey}
-                    dataKey={dataKey}
-                    stroke={stroke}
-                    dot={dot}
-                    strokeWidth={strokeWidth}
-                  />
-                );
-              })}
-              <XAxis
-                scale={'time'}
-                dataKey={'dateNumber'}
-                type={'number'}
-                domain={['dataMin', 'auto']}
-                tickFormatter={tickFormater}
-                interval={30}
-                tick={customizedTick}
-                stroke='hsl(228,48%,50%)'
-              />
-              <YAxis
-                dataKey={yAxis}
-                domain={['dataMin', 'dataMax']}
-                scale={scale}
-                tickFormatter={formatNumber}
-                stroke='hsl(228,48%,50%)'
-                // interval='preserveStart'
-                allowDataOverflow={true}
-              />
-              <Tooltip
-                labelFormatter={labelFormater}
-                formatter={tooltipFormatter}
-                contentStyle={{
-                  textTransform: 'capitalize',
-                  backgroundColor: '#161f48',
-                  border: '0px solid transparent',
-                }}
-                labelStyle={{
-                  color: 'white',
-                  fontWeight: 500,
-                }}
-              />
-            </LineChart>
-          </ResponsiveContainer>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
+
+  const flag = data.length === 0;
+
+  const transitions = useTransition(flag, {
+    from: {
+      opacity: 0,
+      x: 0,
+      y: 0,
+    },
+    enter: {
+      opacity: 1,
+      x: 0,
+      y: 0,
+    },
+    leave: {
+      opacity: 0,
+      x: 0,
+      y: 0,
+    },
+    config: config.molasses,
+  });
+
+  return transitions((style, item, t, i) => {
+    return item ? (
+      <ChartError style={style} />
+    ) : (
+      <animated.div style={{ ...style, width: '100%', height: '100%' }}>
+        <ResponsiveContainer className={styles.background}>
+          <LineChart
+            data={data}
+            margin={{
+              top: 20,
+              left: 20,
+              right: 20,
+              bottom: 10,
+            }}>
+            <CartesianGrid
+              vertical={false}
+              strokeWidth={1.5}
+              opacity={0.5}
+              stroke='#293875'
+            />
+            {lines.map(({ dataKey, stroke, dot, strokeWidth }) => {
+              return (
+                <Line
+                  key={dataKey}
+                  dataKey={dataKey}
+                  stroke={stroke}
+                  dot={dot}
+                  strokeWidth={strokeWidth}
+                />
+              );
+            })}
+            <XAxis
+              scale={'time'}
+              dataKey={'dateNumber'}
+              type={'number'}
+              domain={['dataMin', 'auto']}
+              tickFormatter={tickFormater}
+              interval={30}
+              tick={customizedTick}
+              stroke='hsl(228,48%,50%)'
+            />
+            <YAxis
+              dataKey={yAxis}
+              domain={['dataMin', 'dataMax']}
+              scale={scale}
+              tickFormatter={formatNumber}
+              stroke='hsl(228,48%,50%)'
+              // interval='preserveStart'
+              allowDataOverflow={true}
+            />
+            <Tooltip
+              labelFormatter={labelFormater}
+              formatter={tooltipFormatter}
+              contentStyle={{
+                textTransform: 'capitalize',
+                backgroundColor: '#161f48',
+                border: '0px solid transparent',
+              }}
+              labelStyle={{
+                color: 'white',
+                fontWeight: 500,
+              }}
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </animated.div>
+    );
+  });
 };
 
 const MemoizedCustomMultiLineChart = React.memo(CustomMultiLineChart);

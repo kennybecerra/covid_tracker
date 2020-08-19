@@ -6,7 +6,7 @@ import { StoreState } from '../../../../redux/reducers';
 import { GraphState } from '../../../../redux/reducers/graphData';
 import Loading from '../../../../components/Loading/Loading';
 import { ResponsiveGeoMapCanvas } from '@nivo/geo';
-import geo from '../../../../assets/json/110mGeo.json';
+// import geo from '../../../../assets/json/110mGeo.json';
 
 interface Slide2Props {}
 
@@ -190,38 +190,7 @@ const Slide2: React.FC<Slide2Props> = () => {
   return (
     <div className={styles.slide2}>
       <div className={styles.world}>
-        {countriesLoading ? (
-          <Loading />
-        ) : (
-          <ResponsiveGeoMapCanvas
-            // data={data}
-            features={geo?.features}
-            // features="/* please have a look at the description for usage */"
-            margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
-            projectionTranslation={[0.5, 0.5]}
-            projectionRotation={[0, 0, 0]}
-            fillColor='#eeeeee'
-            borderWidth={0.5}
-            borderColor='#333333'
-            enableGraticule={true}
-            graticuleLineColor='#666666'
-            // legends={[
-            //   {
-            //     anchor: 'bottom-left',
-            //     direction: 'column',
-            //     justify: true,
-            //     translateX: 20,
-            //     translateY: -60,
-            //     itemsSpacing: 0,
-            //     itemWidth: 92,
-            //     itemHeight: 18,
-            //     itemDirection: 'left-to-right',
-            //     itemOpacity: 0.85,
-            //     symbolSize: 18,
-            //   },
-            // ]}
-          />
-        )}
+        {countriesLoading ? null : <Loading />}
       </div>
     </div>
   );
