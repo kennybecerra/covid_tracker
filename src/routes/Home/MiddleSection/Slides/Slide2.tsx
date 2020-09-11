@@ -1,197 +1,101 @@
 import * as React from 'react';
 import styles from './Slide2.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCountriesCovidData } from '../../../../redux/actions';
 import { StoreState } from '../../../../redux/reducers';
 import { GraphState } from '../../../../redux/reducers/graphData';
-import Loading from '../../../../components/Loading/Loading';
-import { ResponsiveGeoMapCanvas } from '@nivo/geo';
-// import geo from '../../../../assets/json/110mGeo.json';
+import { SessionState } from '../../../../redux/reducers/session';
+import { unsetFirstTimeFlag } from '../../../../redux/actions/session';
+import CustomMultiLineChart from '../../../../components/Charts/CustomMultiLineChart/CustomMultiLineChart';
+import { useTrail, animated } from 'react-spring';
+import CustomBarChart from '../../../../components/Charts/BarChart/CustomBarChart';
 
 interface Slide2Props {}
+
+type combinedSelector = GraphState & SessionState;
 
 const Slide2: React.FC<Slide2Props> = () => {
   const dispatch = useDispatch();
   const {
     countriesLoading,
-    countriesError,
-    countriesErrorMessage,
     countriesData,
-    geoJSON,
-  } = useSelector<StoreState, Partial<GraphState>>((state) => {
+    globalTimelineData,
+    firstTimeFlag,
+  } = useSelector<StoreState, combinedSelector>((state) => {
     return {
       ...state.graphData,
+      ...state.session,
     };
   });
 
-  const data = [
+  const timeLineProps = [
     {
-      id: 'AFG',
-      value: 534443,
+      type: 'linear',
+      dataKey: 'confirmed',
+      stroke: '#8884d8',
+      dot: false,
+      strokeWidth: 2,
     },
     {
-      id: 'AGO',
-      value: 547929,
+      type: 'linear',
+      dataKey: 'active',
+      stroke: '#e09852',
+      dot: false,
+      strokeWidth: 2,
     },
     {
-      id: 'ALB',
-      value: 486514,
+      type: 'linear',
+      dataKey: 'recovered',
+      stroke: '#3362dd',
+      dot: false,
+      strokeWidth: 2,
     },
     {
-      id: 'ARE',
-      value: 832074,
-    },
-    {
-      id: 'ARG',
-      value: 79065,
-    },
-    {
-      id: 'ARM',
-      value: 578317,
-    },
-    {
-      id: 'ATA',
-      value: 567145,
-    },
-    {
-      id: 'ATF',
-      value: 70876,
-    },
-    {
-      id: 'AUT',
-      value: 577295,
-    },
-    {
-      id: 'AZE',
-      value: 932006,
-    },
-    {
-      id: 'BDI',
-      value: 554028,
-    },
-    {
-      id: 'BEL',
-      value: 632872,
-    },
-    {
-      id: 'BEN',
-      value: 794436,
-    },
-    {
-      id: 'BFA',
-      value: 887592,
-    },
-    {
-      id: 'BGD',
-      value: 960521,
-    },
-    {
-      id: 'BGR',
-      value: 666490,
-    },
-    {
-      id: 'BHS',
-      value: 542837,
-    },
-    {
-      id: 'BIH',
-      value: 392129,
-    },
-    {
-      id: 'BLR',
-      value: 249182,
-    },
-    {
-      id: 'BLZ',
-      value: 694212,
-    },
-    {
-      id: 'BOL',
-      value: 855809,
-    },
-    {
-      id: 'BRN',
-      value: 269695,
-    },
-    {
-      id: 'BTN',
-      value: 349372,
-    },
-    {
-      id: 'BWA',
-      value: 617941,
-    },
-    {
-      id: 'CAF',
-      value: 313064,
-    },
-    {
-      id: 'CAN',
-      value: 494510,
-    },
-    {
-      id: 'CHE',
-      value: 527364,
-    },
-    {
-      id: 'CHL',
-      value: 885856,
-    },
-    {
-      id: 'CHN',
-      value: 49606,
-    },
-    {
-      id: 'CIV',
-      value: 748804,
-    },
-    {
-      id: 'CMR',
-      value: 366901,
-    },
-    {
-      id: 'COG',
-      value: 291367,
-    },
-    {
-      id: 'COL',
-      value: 153931,
-    },
-    {
-      id: 'CRI',
-      value: 984881,
-    },
-    {
-      id: 'CUB',
-      value: 65105,
-    },
-    {
-      id: '-99',
-      value: 682028,
-    },
-    {
-      id: 'CYP',
-      value: 289011,
-    },
-    {
-      id: 'CZE',
-      value: 765102,
-    },
-    {
-      id: 'DEU',
-      value: 245504,
+      type: 'linear',
+      dataKey: 'deaths',
+      stroke: '#f1437d',
+      dot: false,
+      strokeWidth: 2,
     },
   ];
 
-  React.useEffect(() => {
-    dispatch(fetchCountriesCovidData());
-  }, []);
+  const appears = useTrail(6, {
+    from: {
+      opacity: firstTimeFlag ? 0 : 1,
+      scale: firstTimeFlag ? 0.2 : 1,
+    },
+    to: {
+      opacity: 1,
+      scale: 1,
+    },
+    config: {
+      mass: 3,
+      tension: 280,
+      friction: 39,
+    },
+    delay: 200,
+    onRest: () => {
+      if (firstTimeFlag) dispatch(unsetFirstTimeFlag());
+    },
+  });
 
   return (
     <div className={styles.slide2}>
-      <div className={styles.world}>
-        {countriesLoading ? null : <Loading />}
-      </div>
+      <animated.div style={appears[0]} className={styles.worldLineChart}>
+        <CustomMultiLineChart
+          data={globalTimelineData}
+          scale={'linear'}
+          lines={timeLineProps}
+          yAxis={'confirmed'}
+          loading={countriesLoading}
+        />
+      </animated.div>
+      <animated.div style={appears[1]} className={styles.worldBarChart}>
+        <CustomBarChart
+          data={countriesData
+            .sort((a, b) => (a.confirmed < b.confirmed ? 1 : -1))
+            .slice(0, 10)}
+        />
+      </animated.div>
     </div>
   );
 };

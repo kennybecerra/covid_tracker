@@ -92,6 +92,10 @@ export interface countriesCovidData {
       cases_per_million_population: number;
     };
   };
+  deaths?: number;
+  confirmed?: number;
+  recovered?: number;
+  critical?: number;
 }
 //  GEO JSON MAPPING
 
@@ -108,4 +112,17 @@ interface feature {
 export interface geoJSON {
   type: 'FeatureCollection';
   features: feature[];
+}
+
+export interface globalTimelineData {
+  updated_at: string; // Date
+  date: string; // Date
+  deaths: number; // Int or null
+  confirmed: number; // Int or null
+  recovered: number; // Int or null
+  active: number; // Int or null
+  new_confirmed: number; // Int or null
+  new_recovered: number; // Int or null
+  new_deaths: number; // Int or null
+  is_in_progress: boolean; // Boolean
 }

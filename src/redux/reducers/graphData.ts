@@ -8,6 +8,7 @@ import {
   PieData,
   countriesCovidData,
   geoJSON,
+  globalTimelineData,
 } from '../actions/types';
 import { Reducer } from 'react';
 
@@ -20,6 +21,7 @@ export interface GraphState {
   readonly countriesError: boolean;
   readonly countriesErrorMessage: string;
   readonly countriesData: countriesCovidData[];
+  readonly globalTimelineData: globalTimelineData[];
   readonly geoJSON: geoJSON;
   readonly KPI: KPIData;
   readonly timeline: timelineDataPoint[];
@@ -35,6 +37,7 @@ const initialState: GraphState = {
   countriesError: false,
   countriesErrorMessage: '',
   countriesData: [],
+  globalTimelineData: [],
   geoJSON: undefined,
   KPI: undefined,
   timeline: [],
@@ -72,8 +75,11 @@ export const graphDataReducer: Reducer<GraphState, AllGraphDataActions> = (
     case ActionTypes.RequestCountriesDataSuccess:
       newState.countriesLoading = false;
       newState.countriesError = false;
-      newState.countriesData = action.payload.data;
+      newState.countriesData = transformCountriesData(action.payload.data);
       newState.geoJSON = action.payload.geoJSON;
+      newState.globalTimelineData = transformToGlobalTimelineData(
+        action.payload.globalTimelineData
+      );
       break;
     case ActionTypes.RequestCountriesDataFailure:
       newState.countriesLoading = false;
@@ -202,4 +208,31 @@ const transformToPieData = (data: covidData): PieData => {
     slices,
     total,
   };
+};
+
+const transformToGlobalTimelineData = (
+  data: globalTimelineData[]
+): globalTimelineData[] => {
+  return data
+    .map((item) => {
+      item['dateNumber'] = Date.parse(item.updated_at);
+      return item;
+    })
+    .reverse();
+};
+
+const transformCountriesData = (
+  data: countriesCovidData[]
+): countriesCovidData[] => {
+  const newResult = data.map((item: countriesCovidData) => {
+    Object.keys(item.latest_data).forEach((key) => {
+      if (key !== 'calculated') {
+        item[key] = item.latest_data[key];
+      }
+    });
+
+    return item;
+  });
+
+  return newResult;
 };

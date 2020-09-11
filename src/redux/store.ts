@@ -2,7 +2,10 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
-import { fetchCountryCovidData } from './actions/graphData';
+import {
+  fetchCountryCovidData,
+  fetchCountriesCovidData,
+} from './actions/graphData';
 
 const store = createStore(
   rootReducer,
@@ -10,4 +13,5 @@ const store = createStore(
 );
 
 store.dispatch<any>(fetchCountryCovidData('US'));
+store.dispatch<any>(fetchCountriesCovidData());
 export default store;

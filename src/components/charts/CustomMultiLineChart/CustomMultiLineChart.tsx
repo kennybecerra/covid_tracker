@@ -104,8 +104,8 @@ const CustomMultiLineChart: React.FC<CustomMultiLineChartProps> = ({
             data={data}
             margin={{
               top: 20,
-              left: 20,
-              right: 20,
+              left: 0,
+              right: 40,
               bottom: 10,
             }}>
             <CartesianGrid
@@ -139,7 +139,7 @@ const CustomMultiLineChart: React.FC<CustomMultiLineChartProps> = ({
               dataKey={yAxis}
               domain={['dataMin', 'dataMax']}
               scale={scale}
-              tickFormatter={formatNumber}
+              tickFormatter={(num) => formatNumber(num, true)}
               stroke='hsl(228,48%,50%)'
               // interval='preserveStart'
               allowDataOverflow={true}

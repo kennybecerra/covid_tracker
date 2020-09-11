@@ -13,9 +13,12 @@ const BottomSection: React.FC<IProps> = (props) => {
     (state) => state.session
   );
 
-  const changeSlide = React.useCallback((num) => {
-    dispatch(moveSlideTo(num));
-  }, []);
+  const changeSlide = React.useCallback(
+    (num) => {
+      dispatch(moveSlideTo(num));
+    },
+    [dispatch]
+  );
   return (
     <div className={styles.BottomSection}>
       <svg preserveAspectRatio='none' className={styles.svg} viewBox='0 0 20 5'>

@@ -1,5 +1,10 @@
 import { ActionTypes } from './actionTypes';
-import { covidData, countriesCovidData, geoJSON } from './types';
+import {
+  covidData,
+  countriesCovidData,
+  geoJSON,
+  globalTimelineData,
+} from './types';
 
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { GraphState } from '../reducers/graphData';
@@ -64,11 +69,12 @@ const RequestCountriesDataAction = () => {
 
 const RequestCountriesDataSuccessAction = (
   data: countriesCovidData[],
-  geoJSON: geoJSON
+  geoJSON: geoJSON,
+  globalTimelineData: globalTimelineData[]
 ) => {
   return {
     type: ActionTypes.RequestCountriesDataSuccess,
-    payload: { data, geoJSON },
+    payload: { data, geoJSON, globalTimelineData },
   } as const;
 };
 
@@ -107,7 +113,17 @@ export const fetchCountriesCovidData: ActionCreator<ThunkAction<
         .then((result) => {
           return result;
         });
-      dispatch(RequestCountriesDataSuccessAction(results.data, geoJSON));
+
+      const globalTimelineData: { data: globalTimelineData[] } = await fetch(
+        `https://corona-api.com/timeline`
+      ).then((res) => res.json());
+      dispatch(
+        RequestCountriesDataSuccessAction(
+          results.data,
+          geoJSON,
+          globalTimelineData.data
+        )
+      );
     } catch (err) {
       dispatch(RequestCountriesDataFailureAction(err));
     }

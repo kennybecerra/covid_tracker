@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Slider } from '../../../components/Slider/slider';
 import Slide1 from './Slides/Slide1';
 import Slide2 from './Slides/Slide2';
+import Slide3 from './Slides/Slide3';
 import styles from './MiddleSection.module.scss';
 import { useSelector } from 'react-redux';
 import { StoreState } from '../../../redux/reducers/index';
@@ -19,6 +20,7 @@ const MiddleSection: React.FC<MiddleSectionIProps> = () => {
       <Slider index={currentSlide}>
         <Slide1 />
         <Slide2 />
+        <Slide3 />
       </Slider>
     </div>
   );
