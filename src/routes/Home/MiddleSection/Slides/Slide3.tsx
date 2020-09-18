@@ -8,7 +8,7 @@ import styles from './Slide3.module.scss';
 
 export interface Slide3IProps {}
 
-const Slide3: React.SFC<Slide3IProps> = () => {
+const Slide3: React.FC<Slide3IProps> = () => {
   const dispatch = useDispatch();
   const {
     countriesLoading,
