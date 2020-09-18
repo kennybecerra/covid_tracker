@@ -1,6 +1,6 @@
 # Covid Tracker
 
-View the application [here](https://kennybecerra.github.io/covid_tracker/)
+View the application [here](https://romantic-lalande-70d473.netlify.app/)
 
 ## Description
 
