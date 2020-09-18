@@ -102,6 +102,7 @@ const Table: React.FC<TableProps> = ({
     minCellWidth,
     rowHeight,
     rowKey,
+    sorter,
     sortColumn.key,
     sortColumn.forward,
     sortColumn,

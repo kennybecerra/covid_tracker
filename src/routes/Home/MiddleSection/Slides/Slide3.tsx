@@ -2,7 +2,6 @@ import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../../../redux/reducers';
 import { GraphState } from '../../../../redux/reducers/graphData';
-// import Table from '../../../../components/Table/Table';
 import VTable from '../../../../components/Table/VirtualizedTable';
 import formatNumber from '../../../../utility/formatNumber';
 import styles from './Slide3.module.scss';
@@ -30,7 +29,7 @@ const Slide3: React.SFC<Slide3IProps> = () => {
         rowHeight={50}
         rowKey={'name'}
         minCellWidth={80}
-        thresholdRows={0}
+        thresholdRows={2}
         sorter={(key, forward, first, second) => {
           let flag;
           switch (key) {

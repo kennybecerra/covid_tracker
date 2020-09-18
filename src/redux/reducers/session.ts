@@ -7,7 +7,7 @@ export interface SessionState {
 }
 
 const initialState = {
-  currentSlide: 2,
+  currentSlide: 0,
   firstTimeFlag: true,
 };
 

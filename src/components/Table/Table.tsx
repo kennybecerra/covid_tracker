@@ -6,7 +6,7 @@ export interface TableProps {
   data: any[];
 }
 
-const Table: React.SFC<TableProps> = ({ data }) => {
+const Table: React.FC<TableProps> = ({ data }) => {
   return (
     <div className={styles.container}>
       <AutoSizer>

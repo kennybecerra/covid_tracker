@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
-import { svg, geoOrthographic, geoPath, json } from 'd3';
-import geoJSON from '../../../utility/geoData.json';
+import { useState } from 'react';
 
 interface GlobeIProps {}
 

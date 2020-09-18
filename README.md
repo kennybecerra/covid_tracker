@@ -13,7 +13,7 @@ Web app made width TypeScript and React/Redux. The application's purpose is to v
 - React js / Redux
 - TypeScript
 - React router
-- Framer Motion
+- React Motion
 - Recharts
 - CSS modules
 - SCSS preprocessor
