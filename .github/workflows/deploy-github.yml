@@ -1,0 +1,25 @@
+name: deploy-covid-tracker
+run-name: Deploying covid tracker to github pages
+on:
+  push: 
+    branches: 
+      - "deploy"
+permissions: 
+  contents: write
+jobs: 
+  build-and-deploy: 
+    concurrency: ci-${{github.ref}}
+    runs-in: ubuntu-latest
+    steps: 
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Install and Build 
+        run: |
+          npm ci
+          npm run build
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with: 
+          folder: build
