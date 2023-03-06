@@ -9,7 +9,7 @@ interface KPIIProps {
 }
 
 const KPI: React.FC<KPIIProps> = ({ data }) => {
-  const { key, value } = data ? data : { key: 'Loading', value: 'Loading' };
+  const { key, value } = data || { key: 'Loading', value: 'Loading' };
 
   return (
     <div className={styles.KPI}>
@@ -25,7 +25,7 @@ interface KPIContainerIProps {
   type?: 'separate' | 'connected';
   direction?: 'row' | 'column';
   children:
-    | React.ReactElement<KPIIProps>
+            | React.ReactElement<KPIIProps>
     | Array<React.ReactElement<KPIIProps>>;
 }
 

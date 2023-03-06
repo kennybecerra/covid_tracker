@@ -1,27 +1,16 @@
-import * as React from 'react';
-import styles from './BottomSection.module.scss';
-import { useSelector, useDispatch } from 'react-redux';
-import { StoreState } from '../../../redux/reducers/index';
-import { SessionState } from '../../../redux/reducers/session';
-import { moveSlideTo } from '../../../redux/actions/session';
+import React from 'react';
+import { type TabKeys } from '../Home';
+import './BottomSection.scss';
 
-interface IProps {}
+interface IProps {
+  activeKey: TabKeys;
+  setActiveKey: React.Dispatch<React.SetStateAction<TabKeys>>;
+}
 
-const BottomSection: React.FC<IProps> = (props) => {
-  const dispatch = useDispatch();
-  const { currentSlide } = useSelector<StoreState, SessionState>(
-    (state) => state.session
-  );
-
-  const changeSlide = React.useCallback(
-    (num) => {
-      dispatch(moveSlideTo(num));
-    },
-    [dispatch]
-  );
+const BottomSection: React.FC<IProps> = ({ activeKey, setActiveKey }) => {
   return (
-    <div className={styles.BottomSection}>
-      <svg preserveAspectRatio='none' className={styles.svg} viewBox='0 0 20 5'>
+    <div className={'BottomSection'}>
+      <svg preserveAspectRatio='none' className={'svg'} viewBox='0 0 20 5'>
         <filter id='blurMe'>
           <feGaussianBlur stdDeviation='.04' />
         </filter>
@@ -39,43 +28,11 @@ const BottomSection: React.FC<IProps> = (props) => {
           />
         </g>
         <g transform='translate(0,1)'>
-          <path
-            className={styles.animatedMiddle}
-            d='m 5 4 l 1 -4 l 8 0 l 1 4'
-          />
-          <path className={styles.animatedLeft} d='m 5 4 l 1 -4 l 8 0 l 1 4' />
-          <path className={styles.animatedRight} d='m 5 4 l 1 -4 l 8 0 l 1 4' />
+          <path className={'animatedMiddle'} d='m 5 4 l 1 -4 l 8 0 l 1 4' />
+          <path className={'animatedLeft'} d='m 5 4 l 1 -4 l 8 0 l 1 4' />
+          <path className={'animatedRight'} d='m 5 4 l 1 -4 l 8 0 l 1 4' />
         </g>
       </svg>
-      <ul className={styles.menu}>
-        <li
-          onClick={() => {
-            changeSlide(0);
-          }}
-          className={`${styles.menuItem} ${
-            currentSlide === 0 ? styles.active : ''
-          }`}>
-          <span className={styles.content}>Country</span>
-        </li>
-        <li
-          onClick={() => {
-            changeSlide(1);
-          }}
-          className={`${styles.menuItem} ${
-            currentSlide === 1 ? styles.active : ''
-          }`}>
-          <span className={styles.content}>Overview</span>
-        </li>
-        <li
-          onClick={() => {
-            changeSlide(2);
-          }}
-          className={`${styles.menuItem} ${
-            currentSlide === 2 ? styles.active : ''
-          }`}>
-          <span className={styles.content}>Other</span>
-        </li>
-      </ul>
     </div>
   );
 };

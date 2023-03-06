@@ -1,8 +1,10 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import Home from './routes/Home/Home';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import './App.scss';
 import Admin from './routes/Admin/Admin';
-import './App.css';
+import Home from './routes/Home/Home';
+
+import './dayjs';
 
 function App() {
   return (

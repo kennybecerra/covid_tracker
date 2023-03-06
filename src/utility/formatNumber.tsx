@@ -1,6 +1,6 @@
-const formatNumber = (num: number, short: boolean = false): string => {
-  let decimal = num % 1;
-  let integer = Math.floor(num);
+const formatNumber = (num: number, short = false): string => {
+  const decimal = num % 1;
+  const integer = Math.floor(num);
 
   let formatted = `${integer
     .toString()
@@ -8,7 +8,7 @@ const formatNumber = (num: number, short: boolean = false): string => {
     decimal > 0 ? '.' + decimal.toFixed(2).split('.')[1] : ''
   }`;
 
-  if (!short) return formatted;
+  if (short) return formatted;
 
   switch (formatted.length) {
     case 4:

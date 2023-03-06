@@ -1,9 +1,7 @@
 import * as React from 'react';
 import styles from './BackgroundTop.module.scss';
 
-interface IProps {}
-
-const BackgroundTop: React.FC<IProps> = () => {
+const BackgroundTop = () => {
   return (
     <svg preserveAspectRatio='none' className={styles.svg} viewBox='0 0 20 4.2'>
       <filter id='blurMe'>
@@ -19,18 +17,9 @@ const BackgroundTop: React.FC<IProps> = () => {
         />
       </g>
       <g>
-        <path
-          className={styles.animatedMiddle}
-          d='m 0 3 l 3 0 l 1 1 l 12 0 l 1 -1 l 3 0'
-        />
-        <path
-          className={styles.animatedLeft}
-          d='m 0 3 l 3 0 l 1 1 l 12 0 l 1 -1 l 3 0'
-        />
-        <path
-          className={styles.animatedRight}
-          d='m 0 3 l 3 0 l 1 1 l 12 0 l 1 -1 l 3 0'
-        />
+        <path className={styles.animatedMiddle} d='m 0 3 l 3 0 l 1 1 l 12 0 l 1 -1 l 3 0' />
+        <path className={styles.animatedLeft} d='m 0 3 l 3 0 l 1 1 l 12 0 l 1 -1 l 3 0' />
+        <path className={styles.animatedRight} d='m 0 3 l 3 0 l 1 1 l 12 0 l 1 -1 l 3 0' />
       </g>
     </svg>
   );
