@@ -10,10 +10,10 @@ import {
   Text,
 } from 'recharts';
 import formatNumber from '../../../utility/formatNumber';
-import { motion, AnimatePresence } from 'framer-motion';
 import styles from './CustomPieChart.module.scss';
 import { PieData } from '../../../redux/actions/types';
 import { ChartError } from '../ChartError/ChartError';
+import { useTransition, animated, config } from 'react-spring';
 
 interface CustomPieChartIProps {
   pieData: PieData;
@@ -77,103 +77,119 @@ const CustomPieChart: React.FC<CustomPieChartIProps> = ({ pieData }) => {
   };
 
   const dataNotAvailable = pieData?.slices.every((item) => item.value === 0);
-  return (
-    <AnimatePresence exitBeforeEnter>
-      {dataNotAvailable ? (
-        <ChartError />
-      ) : (
-        <motion.div
-          layout
-          key='CustomPieChart'
-          initial={{ opacity: 0.5 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0.5 }}
-          style={{ width: '100%', height: '100%' }}>
-          <ResponsiveContainer className={styles.background}>
-            <PieChart
-              margin={{
-                top: 10,
-                right: 10,
-                left: 10,
-                bottom: 10,
-              }}>
-              <defs>
-                {Object.keys(gradients).map((key) => {
+
+  const transitions = useTransition(dataNotAvailable, {
+    from: {
+      opacity: 0,
+      x: 0,
+      y: 0,
+    },
+    enter: {
+      opacity: 1,
+      x: 0,
+      y: 0,
+    },
+    leave: {
+      opacity: 0,
+      x: 0,
+      y: 0,
+    },
+    config: config.molasses,
+  });
+  return transitions((style, item, t, i) => {
+    return item ? (
+      <ChartError style={style} />
+    ) : (
+      <animated.div
+        style={{
+          ...style,
+          width: '100%',
+          height: '100%',
+        }}>
+        <ResponsiveContainer className={styles.background}>
+          <PieChart
+            margin={{
+              top: 10,
+              right: 10,
+              left: 10,
+              bottom: 10,
+            }}>
+            <defs>
+              {Object.keys(gradients).map((key) => {
+                return (
+                  <linearGradient id={key} key={key}>
+                    <stop offset='5%' stopColor={gradients[key].start} />
+                    <stop offset='95%' stopColor={gradients[key].end} />
+                  </linearGradient>
+                );
+              })}
+            </defs>
+            <Pie
+              dataKey='value'
+              data={pieData?.slices}
+              innerRadius={'50%'}
+              outerRadius={'80%'}
+              stroke={0}
+              paddingAngle={0}>
+              {pieData &&
+                pieData.slices.map((entry, index) => {
                   return (
-                    <linearGradient id={key} key={key}>
-                      <stop offset='5%' stopColor={gradients[key].start} />
-                      <stop offset='95%' stopColor={gradients[key].end} />
-                    </linearGradient>
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={gradients[entry.name].color}
+                    />
                   );
                 })}
-              </defs>
-              <Pie
-                dataKey='value'
-                data={pieData?.slices}
-                innerRadius={'50%'}
-                outerRadius={'80%'}
-                stroke={0}
-                paddingAngle={0}>
-                {pieData &&
-                  pieData.slices.map((entry, index) => {
-                    return (
-                      <Cell
-                        key={`cell-${index}`}
-                        fill={gradients[entry.name].color}
-                      />
-                    );
-                  })}
-                <Label
-                  position='center'
-                  content={(props) => {
-                    const {
-                      viewBox: { cx, cy },
-                    } = props;
-                    const positioningProps = {
-                      x: cx,
-                      y: cy,
-                      // textAnchor: 'middle',
-                      // verticalAnchor: 'middle',
-                    };
-                    const presentationProps = {
-                      fill: '#8884d8',
-                      fontSize: 16,
-                    };
+              <Label
+                position='center'
+                content={(props) => {
+                  const {
+                    viewBox: { cx, cy },
+                  } = props;
+                  const positioningProps = {
+                    x: cx,
+                    y: cy,
+                    // textAnchor: 'middle',
+                    // verticalAnchor: 'middle',
+                  };
+                  const presentationProps = {
+                    fill: '#8884d8',
+                    fontSize: 16,
+                  };
 
-                    return (
-                      <Text
-                        className={'Testing-class'}
-                        {...positioningProps}
-                        {...presentationProps}
-                        textAnchor={'middle'}
-                        verticalAnchor={'middle'}
-                        fontWeight={700}>
-                        {formatNumber(pieData.total)}
-                      </Text>
-                    );
-                  }}
-                />
-              </Pie>
-              <Tooltip
-                contentStyle={{
-                  textTransform: 'capitalize',
-                  backgroundColor: '#161f48',
-                  border: '0px solid transparent',
+                  return (
+                    <Text
+                      className={'Testing-class'}
+                      {...positioningProps}
+                      {...presentationProps}
+                      textAnchor={'middle'}
+                      verticalAnchor={'middle'}
+                      fontWeight={700}>
+                      {formatNumber(pieData.total)}
+                    </Text>
+                  );
                 }}
-                content={customTooltip}
               />
-              <Legend
-                layout='horizontal'
-                align='center'
-                verticalAlign='bottom'
-                formatter={legendFormatter}
-              />
-            </PieChart>
-          </ResponsiveContainer>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
+            </Pie>
+            <Tooltip
+              contentStyle={{
+                textTransform: 'capitalize',
+                backgroundColor: '#161f48',
+                border: '0px solid transparent',
+              }}
+              content={customTooltip}
+            />
+            <Legend
+              layout='horizontal'
+              align='center'
+              verticalAlign='bottom'
+              formatter={legendFormatter}
+            />
+          </PieChart>
+        </ResponsiveContainer>
+      </animated.div>
+    );
+  });
 };
 
 const MemoizedCustomPieChart = React.memo(CustomPieChart);

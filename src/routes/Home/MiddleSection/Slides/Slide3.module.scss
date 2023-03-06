@@ -1,0 +1,49 @@
+.slide3 {
+  height: 100%;
+  width: 100%;
+
+  display: grid;
+  // grid-template-columns: 100%;
+  // grid-template-rows: repeat(2, minmax(1fr, max-content));
+  gap: 10px;
+  padding: 20px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  @media only screen and (min-width: 600px) {
+    // grid-template-rows: minmax(50%, 50%) minmax(50%, 50%);
+  }
+
+  --scrollbarBG: #060b29;
+  --thumbBG: #2a45b1;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  & {
+    scrollbar-width: thin;
+    scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+  }
+  &::-webkit-scrollbar-track {
+    background: var(--scrollbarBG);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--thumbBG);
+    border-radius: 6px;
+    border: 2px solid var(--scrollbarBG);
+    // box-shadow: 0px 0px 5px 1px #2a45b1;
+  }
+
+  // .worldLineChart {
+  //   grid-column: 1/-1;
+  //   grid-row: 1/2;
+  //   position: relative;
+  // }
+
+  // .worldBarChart {
+  //   grid-column: 1/-1;
+  //   grid-row: 2/3;
+  //   position: relative;
+  // }
+}

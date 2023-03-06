@@ -4,7 +4,7 @@ import styles from './TopSection.module.scss';
 import BackgroundTop from './Backgrounds/BackgroundTop';
 import CountryCodes from '../../../utility/countryCodes.json';
 import { useDispatch } from 'react-redux';
-import { fetchCovidData } from '../../../redux/actions';
+import { fetchCountryCovidData } from '../../../redux/actions';
 import Select from 'react-select';
 
 interface TopSectionIProps {}
@@ -20,7 +20,7 @@ const TopSection: React.FC<TopSectionIProps> = () => {
     prop
   ) => {
     setSelected(prop);
-    dispatch(fetchCovidData(prop.value));
+    dispatch(fetchCountryCovidData(prop.value));
   };
 
   const options = useMemo(() => {

@@ -1,7 +1,15 @@
-import { ActionTypes, covidData } from '../actions/types';
+import { covidData } from '../actions/types';
+import { ActionTypes } from '../actions/actionTypes';
 import { AllGraphDataActions } from '../actions/graphData';
 import formatNumber from '../../utility/formatNumber';
-import { timelineDataPoint, KPIData, PieData } from '../actions/types';
+import {
+  timelineDataPoint,
+  KPIData,
+  PieData,
+  countriesCovidData,
+  geoJSON,
+  globalTimelineData,
+} from '../actions/types';
 import { Reducer } from 'react';
 
 export interface GraphState {
@@ -9,6 +17,12 @@ export interface GraphState {
   readonly error: boolean;
   readonly errorMessage: string;
   readonly data: covidData;
+  readonly countriesLoading: boolean;
+  readonly countriesError: boolean;
+  readonly countriesErrorMessage: string;
+  readonly countriesData: countriesCovidData[];
+  readonly globalTimelineData: globalTimelineData[];
+  readonly geoJSON: geoJSON;
   readonly KPI: KPIData;
   readonly timeline: timelineDataPoint[];
   readonly pieData: PieData;
@@ -19,6 +33,12 @@ const initialState: GraphState = {
   error: false,
   errorMessage: '',
   data: undefined,
+  countriesLoading: false,
+  countriesError: false,
+  countriesErrorMessage: '',
+  countriesData: [],
+  globalTimelineData: [],
+  geoJSON: undefined,
   KPI: undefined,
   timeline: [],
   pieData: undefined,
@@ -26,16 +46,16 @@ const initialState: GraphState = {
 
 export const graphDataReducer: Reducer<GraphState, AllGraphDataActions> = (
   state = initialState,
-  action
+  action: AllGraphDataActions
 ) => {
   let newState = { ...state };
 
   switch (action.type) {
-    case ActionTypes.RequestData:
+    case ActionTypes.RequestCountryData:
       newState.loading = true;
       newState.error = false;
       break;
-    case ActionTypes.RequestDataSuccess:
+    case ActionTypes.RequestCountryDataSuccess:
       newState.loading = false;
       newState.error = false;
       newState.data = action.payload;
@@ -43,9 +63,27 @@ export const graphDataReducer: Reducer<GraphState, AllGraphDataActions> = (
       newState.timeline = transformToTimelineData(action.payload);
       newState.pieData = transformToPieData(action.payload);
       break;
-    case ActionTypes.RequestDataFailure:
+    case ActionTypes.RequestCountryDataFailure:
       newState.loading = false;
       newState.error = true;
+      newState.errorMessage = action.payload;
+      break;
+    case ActionTypes.RequestCountriesData:
+      newState.countriesLoading = true;
+      newState.countriesError = false;
+      break;
+    case ActionTypes.RequestCountriesDataSuccess:
+      newState.countriesLoading = false;
+      newState.countriesError = false;
+      newState.countriesData = transformCountriesData(action.payload.data);
+      newState.geoJSON = action.payload.geoJSON;
+      newState.globalTimelineData = transformToGlobalTimelineData(
+        action.payload.globalTimelineData
+      );
+      break;
+    case ActionTypes.RequestCountriesDataFailure:
+      newState.countriesLoading = false;
+      newState.countriesError = true;
       newState.errorMessage = action.payload;
       break;
     default:
@@ -55,6 +93,7 @@ export const graphDataReducer: Reducer<GraphState, AllGraphDataActions> = (
   return newState;
 };
 
+// UTILITY Function
 const transformToKPIData = (data: covidData): KPIData => {
   const newData = Object.keys(data).reduce((accu, currentKey) => {
     switch (currentKey) {
@@ -169,4 +208,31 @@ const transformToPieData = (data: covidData): PieData => {
     slices,
     total,
   };
+};
+
+const transformToGlobalTimelineData = (
+  data: globalTimelineData[]
+): globalTimelineData[] => {
+  return data
+    .map((item) => {
+      item['dateNumber'] = Date.parse(item.updated_at);
+      return item;
+    })
+    .reverse();
+};
+
+const transformCountriesData = (
+  data: countriesCovidData[]
+): countriesCovidData[] => {
+  const newResult = data.map((item: countriesCovidData) => {
+    Object.keys(item.latest_data).forEach((key) => {
+      if (key !== 'calculated') {
+        item[key] = item.latest_data[key];
+      }
+    });
+
+    return item;
+  });
+
+  return newResult;
 };
