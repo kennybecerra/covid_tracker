@@ -1,13 +1,14 @@
+@use "sass:math";
 @use "src/utility.scss";
 
 $html-font-size: 16px;
 
 @function stripUnit($value) {
-	@return $value / ($value * 0 + 1);
+	@return math.div($value , ($value * 0 + 1));
 }
 
 @function rem($pxValue) {
-	@return #{stripUnit($pxValue) / stripUnit($html-font-size)}rem;
+	@return #{math.div(stripUnit($pxValue) , stripUnit($html-font-size))}rem;
 }
 
 @mixin KPI {
@@ -101,7 +102,7 @@ $html-font-size: 16px;
 	flex-direction: column;
 	justify-content: space-evenly;
 
-	align-items: start;
+	align-items: flex-start;
 
 	.ant-statistic {
 		display: flex;
