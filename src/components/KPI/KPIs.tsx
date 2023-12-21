@@ -1,7 +1,7 @@
-import { Statistic } from 'antd';
-import React from 'react';
-import CountUp from 'react-countup';
-import './KPI.scss';
+import { Statistic } from "antd";
+import React from "react";
+import CountUp from "react-countup";
+import "./KPI.scss";
 
 interface IKPI {
   title: string;
@@ -10,12 +10,16 @@ interface IKPI {
 }
 
 const formatter = (value: number) => (
-  <CountUp end={value} separator=',' duration={1} />
+  <CountUp end={value} separator="," duration={1} />
 );
+
+const stringFormatter = (value: string) => {
+  return <span data-test-id={`${value}`}>{value}</span>;
+};
 
 export const KPI = ({ title, amount, isLoading }: IKPI) => {
   return (
-    <div className={'KPI'}>
+    <div className={"KPI"}>
       <Statistic
         loading={isLoading}
         title={title}
@@ -32,7 +36,7 @@ interface IKPIC {
 
 export const KPIC = ({ items }: IKPIC) => {
   return (
-    <div className={'KPIC'}>
+    <div className={"KPIC"}>
       {items?.map(({ isLoading, title, amount }) => {
         return (
           <Statistic
@@ -54,15 +58,15 @@ interface IKPID {
 
 export const KPID = ({ items }: IKPID) => {
   return (
-    <div className={'KPID'}>
+    <div className={"KPID"}>
       {items?.map(({ isLoading, title, value }) => {
         return (
           <Statistic
             key={title}
             loading={isLoading}
-            title={title}
+            title={<span id="">{title}</span>}
             value={value}
-            formatter={typeof value === 'number' ? formatter : undefined}
+            formatter={typeof value === "number" ? formatter : stringFormatter}
           />
         );
       })}

@@ -1,0 +1,52 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@5.1.1
+
+jobs:
+  say_hello:
+    docker:
+      - image: mcr.microsoft.com/playwright:v1.40.0-jammy
+    steps:
+      - run: echo "Say hello to YAML!"
+
+  installation:
+    docker:
+      - image: mcr.microsoft.com/playwright:v1.40.0-jammy
+    steps:
+      - checkout
+      - run: node -v
+      - run:
+          name: Install Packages
+          command: npm install --legacy-peer-deps
+      - run: npm i -D @playwright/test --legacy-peer-deps
+      - run: npx playwright install
+      - run: npx playwright install chrome
+      - run:
+          name: Run Program
+          command: npm run start
+          background: true
+      - run:
+          name: Wait for Program
+          command: sleep 90s
+      - run:
+          name: Run test
+          command: PLAYWRIGHT_JUNIT_OUTPUT_NAME=results.xml npx playwright test --reporter=junit --project=chromium
+      - store_test_results:
+          path: results.xml
+      - store_artifacts:
+          path: test-results
+
+workflows:
+  # Name of workflow
+  setup_tests:
+    # List of jobs that will run
+    jobs:
+      - say_hello:
+          filters:
+            branches:
+              only: playwright-testing
+      - installation:
+          filters:
+            branches:
+              only: playwright-testing
