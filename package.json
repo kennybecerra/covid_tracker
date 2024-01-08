@@ -14,6 +14,7 @@
     "@types/recharts": "^1.8.14",
     "antd": "^5.1.7",
     "dayjs": "^1.11.7",
+    "eslint-config-standard-with-typescript": "^43.0.0",
     "framer-motion": "^7.5.3",
     "lodash": "^4.17.19",
     "react": "^18.2.0",
@@ -27,7 +28,7 @@
     "sass": "^1.55.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=4040 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -50,23 +51,22 @@
     ]
   },
   "devDependencies": {
-    "@craco/craco": "^7.1.0",
+    "@playwright/test": "^1.40.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
     "@types/jest": "^29.5.0",
     "@types/react-router-dom": "^5.1.5",
-    "@typescript-eslint/eslint-plugin": "^5.50.0",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
     "eslint": "^8.33.0",
-    "eslint-config-prettier": "^8.6.0",
-    "eslint-config-standard-with-typescript": "^34.0.0",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-n": "^15.6.1",
+    "eslint-plugin-n": "^16.5.0",
     "eslint-plugin-promise": "^6.1.1",
-    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react": "^7.33.2",
     "gh-pages": "^5.0.0",
-    "prettier": "^2.8.3",
+    "prettier": "^3.1.1",
     "redux-devtools-extension": "^2.13.8",
-    "typescript": "^5.0.2"
+    "typescript": "^4.9.5"
   }
 }

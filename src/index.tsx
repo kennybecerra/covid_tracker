@@ -1,7 +1,7 @@
 import { ConfigProvider, theme } from "antd";
 import "antd/dist/reset.css";
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {createRoot} from "react-dom/client"
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
@@ -9,7 +9,9 @@ import './index.css';
 import store from './redux/store';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(
+const container = document.getElementById('root');
+const root = createRoot(container!); // createRoot(container!) if you use TypeScript
+root.render( 
   <BrowserRouter>
     <Provider store={store}>
       <ConfigProvider    
@@ -19,9 +21,7 @@ ReactDOM.render(
         <App />
       </ConfigProvider>
     </Provider>
-  </BrowserRouter>,
-  document.getElementById('root')
-);
+  </BrowserRouter>);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
