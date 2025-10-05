@@ -5,6 +5,7 @@ import {
 } from "@ant-design/plots/es/interface";
 import dayjs from "dayjs";
 import * as React from "react";
+import { animated, config, useSpring } from "react-spring";
 import { KPI, KPIC, KPID } from "src/components/KPI/KPIs";
 import Tile from "src/components/Tile";
 import { type HistoricalCountryData } from "src/redux/features/historical";
@@ -50,9 +51,70 @@ const MultiLineTransformData: (data: HistoricalCountryData) => LinePoint[] = (
 
 const MiddleSection: React.FC<MiddleSectionIProps> = ({ activeKey }) => {
   const { data } = useAppSelector((state) => state.country);
-  const { data: historicalData } = useAppSelector((state) => state.historical);
+  const { data: historicalData, loading: historicalLoading } = useAppSelector(
+    (state) => state.historical
+  );
 
   const isLoading = !data;
+  const isHistoricalLoading =
+    historicalLoading === "pending" || !historicalData;
+
+  // Staggered animations for each component
+  const kpi1Animation = useSpring({
+    from: { transform: "scale(0)", opacity: 0 },
+    to: { transform: "scale(1)", opacity: 1 },
+    delay: 200,
+    config: { ...config.wobbly, tension: 150, friction: 12 },
+  });
+
+  const kpi2Animation = useSpring({
+    from: { transform: "scale(0)", opacity: 0 },
+    to: { transform: "scale(1)", opacity: 1 },
+    delay: 350,
+    config: { ...config.wobbly, tension: 150, friction: 12 },
+  });
+
+  const kpi3Animation = useSpring({
+    from: { transform: "scale(0)", opacity: 0 },
+    to: { transform: "scale(1)", opacity: 1 },
+    delay: 500,
+    config: { ...config.wobbly, tension: 150, friction: 12 },
+  });
+
+  const kpicAnimation = useSpring({
+    from: { transform: "scale(0)", opacity: 0 },
+    to: { transform: "scale(1)", opacity: 1 },
+    delay: 650,
+    config: { ...config.wobbly, tension: 150, friction: 12 },
+  });
+
+  const kpidAnimation = useSpring({
+    from: { transform: "scale(0)", opacity: 0 },
+    to: { transform: "scale(1)", opacity: 1 },
+    delay: 800,
+    config: { ...config.wobbly, tension: 150, friction: 12 },
+  });
+
+  const pieChartAnimation = useSpring({
+    from: { transform: "scale(0)", opacity: 0 },
+    to: { transform: "scale(1)", opacity: 1 },
+    delay: 950,
+    config: { ...config.wobbly, tension: 150, friction: 12 },
+  });
+
+  const columnChartAnimation = useSpring({
+    from: { transform: "scale(0)", opacity: 0 },
+    to: { transform: "scale(1)", opacity: 1 },
+    delay: 1100,
+    config: { ...config.wobbly, tension: 150, friction: 12 },
+  });
+
+  const lineChartAnimation = useSpring({
+    from: { transform: "scale(0)", opacity: 0 },
+    to: { transform: "scale(1)", opacity: 1 },
+    delay: 1250,
+    config: { ...config.wobbly, tension: 150, friction: 12 },
+  });
 
   const donutConfig: PieConfig = {
     autoFit: true,
@@ -67,12 +129,7 @@ const MiddleSection: React.FC<MiddleSectionIProps> = ({ activeKey }) => {
     colorField: "type",
     radius: 0.8,
     innerRadius: 0.6,
-    animation: {
-      appear: {
-        animation: "wave-in",
-        duration: 1000,
-      },
-    },
+    animation: false,
     color: ["#FF6B6B", "#5B8FF9", "#5AD8A6"],
     pieStyle: {
       stroke: "#1F1F1F",
@@ -168,7 +225,12 @@ const MiddleSection: React.FC<MiddleSectionIProps> = ({ activeKey }) => {
 
   const lineConfig: LineConfig = {
     autoFit: true,
-    animation: true,
+    animation: {
+      appear: {
+        duration: 1000,
+      },
+      update: false,
+    },
     loading: !historicalData,
     appendPadding: [16, 16, 16, 16],
     data: historicalData ? MultiLineTransformData(historicalData) : [],
@@ -332,7 +394,12 @@ const MiddleSection: React.FC<MiddleSectionIProps> = ({ activeKey }) => {
     xField: "type",
     yField: "value",
     autoFit: true,
-    animation: true,
+    animation: {
+      appear: {
+        duration: 800,
+      },
+      update: false,
+    },
     loading: isLoading,
     appendPadding: [16, 16, 16, 16],
     color: ["#FF6B6B", "#5B8FF9", "#5AD8A6"],
@@ -442,64 +509,80 @@ const MiddleSection: React.FC<MiddleSectionIProps> = ({ activeKey }) => {
 
   return (
     <div className="grid">
-      <KPI
-        title="critical"
-        amount={data?.critical ?? 0}
-        isLoading={isLoading}
-      />
-      <KPI
-        title="recovered"
-        amount={data?.recovered ?? 0}
-        isLoading={isLoading}
-      />
-      <KPI title="deaths" amount={data?.deaths ?? 0} isLoading={isLoading} />
-      <KPIC
-        items={[
-          {
-            isLoading,
-            title: "Critical/Mill",
-            amount: data?.criticalPerOneMillion ?? 0,
-          },
-          {
-            isLoading,
-            title: "Recovered/Mill",
-            amount: data?.recoveredPerOneMillion ?? 0,
-          },
-          {
-            isLoading,
-            title: "Deaths/Mill",
-            amount: data?.deathsPerOneMillion ?? 0,
-          },
-        ]}
-      />
-      <KPID
-        items={[
-          {
-            isLoading,
-            title: "Country",
-            value: data?.country ?? "",
-          },
-          {
-            isLoading,
-            title: "Population",
-            value: data?.population ?? 0,
-          },
-          {
-            isLoading,
-            title: "Last Update",
-            value: dayjs(data?.updated ?? 0).format("MM/DD/YYYY"),
-          },
-        ]}
-      />
-      <Tile className="pie-chart" style={{ padding: 10 }}>
-        <Pie {...donutConfig} />
-      </Tile>
-      <Tile className="column-chart" style={{ padding: 10 }}>
-        <Column {...ColumnConfig} />
-      </Tile>
-      <Tile className="line-chart" style={{ padding: 10 }}>
-        <Line {...lineConfig} />
-      </Tile>
+      <animated.div style={kpi1Animation}>
+        <KPI
+          title="critical"
+          amount={data?.critical ?? 0}
+          isLoading={isLoading}
+        />
+      </animated.div>
+      <animated.div style={kpi2Animation}>
+        <KPI
+          title="recovered"
+          amount={data?.recovered ?? 0}
+          isLoading={isLoading}
+        />
+      </animated.div>
+      <animated.div style={kpi3Animation}>
+        <KPI title="deaths" amount={data?.deaths ?? 0} isLoading={isLoading} />
+      </animated.div>
+      <animated.div className={"KPIC_container"} style={kpicAnimation}>
+        <KPIC
+          items={[
+            {
+              isLoading,
+              title: "Critical/Mill",
+              amount: data?.criticalPerOneMillion ?? 0,
+            },
+            {
+              isLoading,
+              title: "Recovered/Mill",
+              amount: data?.recoveredPerOneMillion ?? 0,
+            },
+            {
+              isLoading,
+              title: "Deaths/Mill",
+              amount: data?.deathsPerOneMillion ?? 0,
+            },
+          ]}
+        />
+      </animated.div>
+      <animated.div className={"KPID_container"} style={kpidAnimation}>
+        <KPID
+          items={[
+            {
+              isLoading,
+              title: "Country",
+              value: data?.country ?? "",
+            },
+            {
+              isLoading,
+              title: "Population",
+              value: data?.population ?? 0,
+            },
+            {
+              isLoading,
+              title: "Last Update",
+              value: dayjs(data?.updated ?? 0).format("MM/DD/YYYY"),
+            },
+          ]}
+        />
+      </animated.div>
+      <animated.div className={"pie-chart"} style={pieChartAnimation}>
+        <Tile style={{ padding: 10 }} isLoading={isLoading}>
+          <Pie {...donutConfig} />
+        </Tile>
+      </animated.div>
+      <animated.div className={"column-chart"} style={columnChartAnimation}>
+        <Tile style={{ padding: 10 }} isLoading={isLoading}>
+          <Column {...ColumnConfig} />
+        </Tile>
+      </animated.div>
+      <animated.div className={"line-chart"} style={lineChartAnimation}>
+        <Tile style={{ padding: 10 }} isLoading={isHistoricalLoading}>
+          <Line {...lineConfig} />
+        </Tile>
+      </animated.div>
     </div>
   );
 };

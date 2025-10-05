@@ -10,12 +10,12 @@
   padding: 16px;
 
   & > {
-    .KPIC {
+    .KPIC_container {
       grid-column: span 3;
       grid-row: span 1;
     }
 
-    .KPID {
+    .KPID_container {
       grid-column: span 3;
       grid-row: span 1;
     }

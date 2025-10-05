@@ -34,9 +34,6 @@ const TopSection = () => {
     prop
   ) => {
     setSelected(prop);
-    void dispatch(
-      fetchCountryHistoricalData({ countryCode: prop.value, days: 60 })
-    );
   };
 
   const options = useMemo(() => {
@@ -70,7 +67,7 @@ const TopSection = () => {
    */
   useEffect(() => {
     void dispatch(
-      fetchCountryHistoricalData({ countryCode: selected.label, days: 365 })
+      fetchCountryHistoricalData({ countryCode: selected.label, days: 365 * 4 })
     );
   }, [dispatch, selected?.value, selected.label]);
 

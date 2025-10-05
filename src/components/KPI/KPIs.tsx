@@ -1,5 +1,4 @@
 import { Statistic } from 'antd';
-import React from 'react';
 import CountUp from 'react-countup';
 import './KPI.scss';
 
