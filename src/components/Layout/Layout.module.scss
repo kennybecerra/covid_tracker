@@ -40,11 +40,29 @@
     position: absolute;
     right: 0px;
     top: 0px;
-    top: 0px;
-    right: 0px;
     width: 12%;
     height: 60%;
     background-image: linear-gradient(180deg, #56b8ff, #3632c5);
+    z-index: -1;
+  }
+
+  .block3 {
+    position: absolute;
+    bottom: 10%;
+    right: 5%;
+    width: 35%;
+    height: 20%;
+    background-image: linear-gradient(45deg, #4a90e2, #2c5aa0);
+    z-index: -1;
+  }
+
+  .block4 {
+    position: absolute;
+    top: 10%;
+    left: 5%;
+    width: 30%;
+    height: 25%;
+    background-image: linear-gradient(135deg, #7bb3f0, #5a9bd4);
     z-index: -1;
   }
 }

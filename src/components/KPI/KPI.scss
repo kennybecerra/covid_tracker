@@ -4,122 +4,114 @@
 $html-font-size: 16px;
 
 @function stripUnit($value) {
-	@return math.div($value , ($value * 0 + 1));
+  @return math.div($value, ($value * 0 + 1));
 }
 
 @function rem($pxValue) {
-	@return #{math.div(stripUnit($pxValue) , stripUnit($html-font-size))}rem;
+  @return #{math.div(stripUnit($pxValue), stripUnit($html-font-size))}rem;
 }
 
 @mixin KPI {
-	background-color: #0d1633;
-	color: #ffffff;
-	text-align: center;
-	position: relative;
-	height: 100px;
-	width: 100%;
+  background-color: #0d1633;
+  color: #ffffff;
+  text-align: center;
+  position: relative;
+  height: 100px;
+  width: 100%;
 
-	&::after {
-		--topBorderLengthPercent: 15;
+  &::after {
+    --topBorderLengthPercent: 15;
 
-		content: '';
-		position: absolute;
-		height: 2px;
-		width: calc(var(--topBorderLengthPercent) * 1%);
-		top: 0px;
-		left: calc(((100 - var(--topBorderLengthPercent)) / 2) * 1%);
-		background-color: #2a45b1;
-		box-shadow: 0px 0px 15px 2px #2a45b1;
-	}
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: calc(var(--topBorderLengthPercent) * 1%);
+    top: 0px;
+    left: calc(((100 - var(--topBorderLengthPercent)) / 2) * 1%);
+    background-color: #2a45b1;
+    box-shadow: 0px 0px 15px 2px #2a45b1;
+  }
 
-	& .ant-statistic-title {
-		@include title;
-		order: 2;
-		margin: 0;
-		margin-top: 2px;
-	}
+  & .ant-statistic-title {
+    @include title;
+    order: 2;
+    margin: 0;
+    margin-top: 2px;
+  }
 
-	& .ant-statistic-content {
-		@include amount;
-		order: 1;
-		margin: 0;
-	}
+  & .ant-statistic-content {
+    @include amount;
+    order: 1;
+    margin: 0;
+  }
 }
 
 @mixin title {
-	color: #2d3f80;
-	font-size: rem(12);
-	font-weight: 500;
-	padding: 0px 10px;
-	text-transform: capitalize;
+  color: #32468d;
+  font-size: rem(12);
+  font-weight: 700;
+  padding: 0px 10px;
+  text-transform: capitalize;
 }
 
 @mixin amount {
-	color: white;
-	color: #99aae7;
-	padding: 0px 10px;
-	font-size: rem(14);
-	font-weight: 700;
+  color: #99aae7;
+  padding: 0px 10px;
+  font-size: rem(14);
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
-
 .KPI {
-	@include KPI;
-	display: inline-flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+  @include KPI;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-
-	.ant-statistic {
-		display: flex;
-		flex-direction: column
-	}
-
+  .ant-statistic {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .KPIC {
-	@include KPI;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-evenly;
-	align-items: center;
+  @include KPI;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
 
-	.ant-statistic {
-		display: flex;
-		flex-direction: column
-	}
+  .ant-statistic {
+    display: flex;
+    flex-direction: column;
+  }
 
-
-	&>div {
-		flex: 0 0 33%;
-	}
+  & > div {
+    flex: 0 0 33%;
+  }
 }
 
 .KPID {
-	@include KPI;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-evenly;
+  @include KPI;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 
-	align-items: flex-start;
+  align-items: flex-start;
 
-	.ant-statistic {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		width: 100%;
-	}
+  .ant-statistic {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+  }
 
-	& .ant-statistic-title {
-		order: 1;
+  & .ant-statistic-title {
+    order: 1;
+  }
 
-	}
-
-	& .ant-statistic-content {
-		order: 2;
-	}
-
-
-
+  & .ant-statistic-content {
+    order: 2;
+  }
 }

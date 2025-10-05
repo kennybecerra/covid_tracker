@@ -1,14 +1,14 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import Select from 'react-select';
+import React, { useEffect, useMemo, useState } from "react";
+import Select from "react-select";
 import {
   fetchCountries,
   type CountryData,
-} from '../../../redux/features/countries';
-import { selectCountryData } from '../../../redux/features/country';
-import { fetchCountryHistoricalData } from '../../../redux/features/historical';
-import { useAppDispatch, useAppSelector } from '../../../redux/store';
-import BackgroundTop from './Backgrounds/BackgroundTop';
-import styles from './TopSection.module.scss';
+} from "../../../redux/features/countries";
+import { selectCountryData } from "../../../redux/features/country";
+import { fetchCountryHistoricalData } from "../../../redux/features/historical";
+import { useAppDispatch, useAppSelector } from "../../../redux/store";
+import BackgroundTop from "./Backgrounds/BackgroundTop";
+import styles from "./TopSection.module.scss";
 
 // Helper
 
@@ -26,8 +26,8 @@ const TopSection = () => {
 
   const { loading, data } = useAppSelector((state) => state.countries);
   const [selected, setSelected] = useState({
-    label: 'USA',
-    value: 'US',
+    label: "USA",
+    value: "US",
   });
 
   const handleChange: (prop: { label: string; value: string }) => void = (
@@ -40,11 +40,11 @@ const TopSection = () => {
   };
 
   const options = useMemo(() => {
-    return loading === 'succeeded' && data !== null ? transformData(data) : [];
+    return loading === "succeeded" && data !== null ? transformData(data) : [];
   }, [loading, data]);
 
   const mapNameToCountryData = useMemo(() => {
-    if (loading === 'succeeded' && Array.isArray(data)) {
+    if (loading === "succeeded" && Array.isArray(data)) {
       return data.reduce<Record<string, CountryData>>((accu, curr) => {
         const { countryInfo } = curr;
         if (!accu[countryInfo?.iso2]) {
@@ -79,7 +79,7 @@ const TopSection = () => {
    */
 
   useEffect(() => {
-    if (!!mapNameToCountryData && typeof selected?.value === 'string') {
+    if (!!mapNameToCountryData && typeof selected?.value === "string") {
       const countryData = mapNameToCountryData[selected.value];
 
       dispatch(selectCountryData(countryData));
@@ -87,7 +87,7 @@ const TopSection = () => {
   }, [mapNameToCountryData, selected.label, selected.value]);
 
   return (
-    <form action='' className={styles.search}>
+    <form action="" className={styles.search}>
       <BackgroundTop />
       <span className={styles.location}></span>
       <div className={styles.inputContainer}>
@@ -97,7 +97,7 @@ const TopSection = () => {
           onChange={handleChange}
           className={styles.select}
           isSearchable
-          isLoading={loading === 'pending' || loading === 'idle'}
+          isLoading={loading === "pending" || loading === "idle"}
         />
       </div>
       <span className={styles.date}></span>

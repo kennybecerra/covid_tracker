@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import Layout from '../../components/Layout/Layout';
-import BottomSection from './BottomSection/BottomSection';
-import styles from './Home.module.scss';
-import MiddleSection from './MiddleSection/MiddleSection';
-import TopSection from './TopSection/TopSection';
+import React, { useState } from "react";
+import Layout from "../../components/Layout/Layout";
+import BottomSection from "./BottomSection/BottomSection";
+import styles from "./Home.module.scss";
+import MiddleSection from "./MiddleSection/MiddleSection";
+import TopSection from "./TopSection/TopSection";
 
-export type TabKeys = 'KPI' | 'Graphs';
+export type TabKeys = "KPI" | "Graphs";
 
 const Home = () => {
-  const [activeKey, setActiveKey] = useState<TabKeys>('KPI');
+  const [activeKey, setActiveKey] = useState<TabKeys>("KPI");
 
   return (
     <Layout>
