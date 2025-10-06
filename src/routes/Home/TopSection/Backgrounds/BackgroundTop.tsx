@@ -1,25 +1,34 @@
-import * as React from 'react';
-import styles from './BackgroundTop.module.scss';
+import * as React from "react";
+import styles from "./BackgroundTop.module.scss";
 
 const BackgroundTop = () => {
   return (
-    <svg preserveAspectRatio='none' className={styles.svg} viewBox='0 0 20 4.2'>
-      <filter id='blurMe'>
-        <feGaussianBlur stdDeviation='.04' />
+    <svg preserveAspectRatio="none" className={styles.svg} viewBox="0 0 20 4.2">
+      <filter id="blurMe">
+        <feGaussianBlur stdDeviation=".04" />
       </filter>
       <g>
         <path
-          strokeWidth='.1px'
-          fill='transparent'
-          stroke='#141c5a'
-          strokeLinejoin='round'
-          d='m 0 3 l 3 0 l 1 1 l 12 0 l 1 -1 l 3 0'
+          strokeWidth=".1px"
+          fill="transparent"
+          stroke="#141c5a"
+          strokeLinejoin="round"
+          d="m 0 3 l 3 0 l 1 1 l 12 0 l 1 -1 l 3 0"
         />
       </g>
       <g>
-        <path className={styles.animatedMiddle} d='m 0 3 l 3 0 l 1 1 l 12 0 l 1 -1 l 3 0' />
-        <path className={styles.animatedLeft} d='m 0 3 l 3 0 l 1 1 l 12 0 l 1 -1 l 3 0' />
-        <path className={styles.animatedRight} d='m 0 3 l 3 0 l 1 1 l 12 0 l 1 -1 l 3 0' />
+        <path
+          className={styles.animatedMiddle}
+          d="m 0 3 l 3 0 l 1 1 l 12 0 l 1 -1 l 3 0"
+        />
+        <path
+          className={styles.animatedLeft}
+          d="m 0 3 l 3 0 l 1 1 l 12 0 l 1 -1 l 3 0"
+        />
+        <path
+          className={styles.animatedRight}
+          d="m 0 3 l 3 0 l 1 1 l 12 0 l 1 -1 l 3 0"
+        />
       </g>
     </svg>
   );

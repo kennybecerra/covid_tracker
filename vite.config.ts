@@ -2,10 +2,23 @@
 import react from "@vitejs/plugin-react";
 import { resolve } from "path";
 import { defineConfig } from "vite";
+import eslint from "vite-plugin-eslint";
 
 export default defineConfig({
   base: "./",
-  plugins: [react()],
+  plugins: [
+    react(),
+    eslint({
+      cache: false,
+      include: [
+        "./src/**/*.js",
+        "./src/**/*.jsx",
+        "./src/**/*.ts",
+        "./src/**/*.tsx",
+      ],
+      exclude: [],
+    }),
+  ],
   // Optional: Configure build output directory if different from default 'dist'
   build: {
     outDir: "build", // Example: if you want to keep 'build' as output directory

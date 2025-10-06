@@ -14,65 +14,35 @@
     min-width: 200px;
     max-width: 300px;
 
+    color: #99aae7;
+
     @media only screen and (min-width: 600px) {
       min-width: 250px;
       max-width: 500px;
     }
 
     .select {
-      color: #99aae7;
+      // Custom scrollbar for dropdown (still needs to be global)
+      :global(.rc-virtual-list) {
+        --scrollbarBG: #060b29;
+        --thumbBG: #2a45b1;
 
-      & div[class$='-control'] {
-        background-color: #060b29;
-        border-color: #2a45b1;
-        box-shadow: 0px 0px 1px 1px #2a45b1;
-        color: #99aae7;
-
-        & div[class$='-singleValue'] {
-          color: #99aae7;
-          font-size: 14px;
-          font-weight: 500;
-          @media only screen and (min-width: 600px) {
-            font-size: 16px;
-          }
+        &::-webkit-scrollbar {
+          width: 7px;
         }
 
-        & div[class$='-Input'] {
-          color: #99aae7;
+        & {
+          scrollbar-width: thin;
+          scrollbar-color: var(--thumbBG) var(--scrollbarBG);
         }
-      }
-      & div[class$='-menu'] {
-        background-color: #060b29;
-
-        font-size: 14px;
-        font-weight: 500;
-        @media only screen and (min-width: 600px) {
-          font-size: 16px;
+        &::-webkit-scrollbar-track {
+          background: var(--scrollbarBG);
         }
-
-        & > div:first-child {
-          background-color: #060b29;
-
-          --scrollbarBG: #060b29;
-          --thumbBG: #2a45b1;
-
-          &::-webkit-scrollbar {
-            width: 7px;
-          }
-
-          & {
-            scrollbar-width: thin;
-            scrollbar-color: var(--thumbBG) var(--scrollbarBG);
-          }
-          &::-webkit-scrollbar-track {
-            background: var(--scrollbarBG);
-          }
-          &::-webkit-scrollbar-thumb {
-            background-color: var(--thumbBG);
-            border-radius: 6px;
-            border: 0px solid var(--scrollbarBG);
-            box-shadow: 0px 0px 5px 1px #2a45b1;
-          }
+        &::-webkit-scrollbar-thumb {
+          background-color: var(--thumbBG);
+          border-radius: 6px;
+          border: 0px solid var(--scrollbarBG);
+          box-shadow: 0px 0px 5px 1px #2a45b1;
         }
       }
     }

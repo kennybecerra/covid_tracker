@@ -1,0 +1,7 @@
+build/
+dist/
+node_modules/
+.git/
+*.min.js
+vite.config.ts
+*.d.ts
