@@ -1,0 +1,86 @@
+@use "../../styles.scss" as *;
+
+.globalSummary {
+  background: white;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: $inkblot;
+  margin: 0;
+}
+
+.iconBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  color: $walrus;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.kpiGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.kpiItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.kpiLabel {
+  font-size: 0.75rem;
+  color: $walrus;
+  font-weight: 400;
+}
+
+.kpiValue {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: $inkblot;
+  line-height: 1.1;
+}
+
+.kpiChange {
+  font-size: 0.6875rem;
+  color: $mykonos;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.changeIndicator {
+  color: $mykonos;
+  font-size: 0.5rem;
+}
+
+.changeIndicatorGreen {
+  color: #34a853;
+  font-size: 0.5rem;
+}

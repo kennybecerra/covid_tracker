@@ -1,0 +1,83 @@
+@use "../../styles.scss" as *;
+
+// Main Layout Container - Full page background
+.layout {
+  min-height: 100vh;
+  background-color: $super-silver;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 1400px) {
+    padding: 1.5rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+    align-items: flex-start;
+  }
+}
+
+// Inner Container - The invisible centered box
+.innerContainer {
+  max-width: 1200px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-rows: auto auto auto auto;
+  gap: 1rem;
+  grid-template-areas:
+    "header header"
+    "globalSummary worldMap"
+    "dailyCases worldMap"
+    "topCountries vaccination";
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "globalSummary"
+      "worldMap"
+      "dailyCases"
+      "topCountries"
+      "vaccination";
+  }
+}
+
+// Grid Areas
+.header {
+  grid-area: header;
+}
+
+.globalSummary {
+  grid-area: globalSummary;
+}
+
+.dailyCases {
+  grid-area: dailyCases;
+}
+
+.topCountries {
+  grid-area: topCountries;
+}
+
+.worldMap {
+  grid-area: worldMap;
+}
+
+.vaccination {
+  grid-area: vaccination;
+}
+
+// Loading State
+.loading {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $super-silver;
+  font-size: 1.25rem;
+  color: $inkblot;
+  font-weight: 600;
+}

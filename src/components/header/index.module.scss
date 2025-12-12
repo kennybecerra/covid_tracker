@@ -1,0 +1,91 @@
+@use "../../styles.scss" as *;
+
+.header {
+  background: $inkblot;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.topRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.875rem 1.25rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.statusDot {
+  width: 10px;
+  height: 10px;
+  background: $mykonos;
+  border-radius: 50%;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 500;
+  color: white;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.userBtn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.nav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.625rem 1.25rem;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.navLink {
+  font-size: 0.875rem;
+  color: $walrus;
+  text-decoration: none;
+  transition: color 0.2s;
+  font-weight: 400;
+
+  &:hover,
+  &.active {
+    color: white;
+  }
+}
+
+.userBtnSmall {
+  background: none;
+  border: none;
+  color: $walrus;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.5rem;
+  transition: color 0.2s;
+
+  &:hover {
+    color: white;
+  }
+}

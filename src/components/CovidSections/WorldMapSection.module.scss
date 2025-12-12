@@ -1,0 +1,24 @@
+@use "../../styles.scss" as *;
+
+.worldMapSection {
+  background: white;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.mapContainer {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+
+  svg {
+    max-width: 100%;
+    height: auto;
+  }
+}

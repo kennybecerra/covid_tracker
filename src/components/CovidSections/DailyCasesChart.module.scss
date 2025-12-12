@@ -1,0 +1,31 @@
+@use "../../styles.scss" as *;
+
+.dailyCases {
+  background: white;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: $inkblot;
+  margin: 0 0 0.75rem 0;
+}
+
+.chartContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 220px;
+  width: 100%;
+  position: relative;
+
+  svg {
+    max-width: 100%;
+    height: auto;
+  }
+}

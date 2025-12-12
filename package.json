@@ -5,16 +5,28 @@
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.2",
+    "@types/numeral": "^2.0.5",
+    "@visx/axis": "^3.12.0",
+    "@visx/curve": "^3.12.0",
+    "@visx/geo": "^3.12.0",
+    "@visx/grid": "^3.12.0",
+    "@visx/group": "^3.12.0",
+    "@visx/responsive": "^3.12.0",
+    "@visx/scale": "^3.12.0",
+    "@visx/shape": "^3.12.0",
+    "@visx/tooltip": "^3.12.0",
     "antd": "^5.1.7",
+    "d3-geo": "^3.1.1",
     "dayjs": "^1.11.7",
+    "numeral": "^2.0.6",
     "react": "^18.2.0",
-    "react-countup": "^6.4.1",
     "react-dom": "^18.2.0",
+    "react-globe.gl": "^2.37.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^5.2.0",
-    "react-select": "^5.7.0",
     "react-spring": "^9.7.1",
-    "recharts": "^3.2.1"
+    "three": "^0.182.0",
+    "topojson-client": "^3.1.0"
   },
   "scripts": {
     "dev": "vite",
@@ -54,7 +66,6 @@
     "prettier": "^3.6.2",
     "redux-devtools-extension": "^2.13.8",
     "sass": "^1.93.2",
-    "vite": "^7.1.9",
-    "vite-plugin-eslint": "^1.8.1"
+    "vite": "^7.1.9"
   }
 }
